@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     nio_init(&csl,NIO_MAX_COLS,NIO_MAX_ROWS,0,0,WHITE,BLACK,TRUE);
     nio_set_default(&csl);
 
-    printl("Linux in-place bootloader\n");
+    printl("Linux in-place bootloader v2\n");
     alloc_memory();
 
     if (detect_machine())
