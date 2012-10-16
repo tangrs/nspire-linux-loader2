@@ -28,5 +28,6 @@
 
 void alloc_memory();
 void free_memory();
+void show_mem(char*);
 
 #endif

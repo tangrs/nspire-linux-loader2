@@ -44,6 +44,37 @@ static void* max_malloc(size_t *size) {
     return ptr;
 }
 
+#define HUMAN(x) do { \
+        char *unit; \
+        unsigned number = x; \
+        if      (x < 1024)        { unit = "B"; } \
+        else if (x < 1024 * 1024) { unit = "K"; number /= 1024; } \
+        else                      { unit = "M"; number /= 1024 * 1024; } \
+        printl("%u%s", number, unit); \
+    } while (0)
+
+void show_mem(char *ignored __attribute__((unused))) {
+        printl("Total free: ");
+        HUMAN(mem_block_size_free());
+        printl("/");
+        HUMAN(settings.mem_block.size);
+        printl("\n");
+
+        printl("Kernel:  ");
+        HUMAN(settings.kernel.size);
+        printl("/");
+        HUMAN(settings.mem_block.size);
+        printl("\n");
+
+        printl("Ramdisk: ");
+        HUMAN(settings.ramdisk.size);
+        printl("/");
+        HUMAN(settings.mem_block.size);
+        printl("\n");
+}
+
+#undef HUMAN
+
 void free_memory() {
     free(settings.atag.start);
     free(settings.mem_block.start);
