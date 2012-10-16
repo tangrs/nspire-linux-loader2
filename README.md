@@ -33,18 +33,14 @@ Valid commands are:
 
 The bootloader is also scriptable. Create a text file containing a list of commands to be executed and change the extension to ```.ll2.tns```, and add the following line to your ```/documents/ndless/ndless.cfg.tns``` file.
 
-```
-ext.ll2=linuxloader2
-```
+    ext.ll2=linuxloader2
 
 Then simply open your script file and the loader will execute all the commands in it. A sample one could look like this:
 
-```
-kernel linux/zImage.tns
-initrd linux/initrd.tns
-cmdline root=/dev/ram
-boot
-```
+    kernel linux/zImage.tns
+    initrd linux/initrd.tns
+    cmdline root=/dev/ram
+    boot
 
 This should save a lot of typing everytime you need to boot Linux.
 
