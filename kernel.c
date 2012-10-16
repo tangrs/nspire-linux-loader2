@@ -45,6 +45,8 @@ void kernel_boot(char * ignored __attribute__((unused))) {
     /* Build atag next */
     if (atag_build()) return;
 
+    if (!settings.atag.raddr) settings.atag.raddr = settings.atag.start;
+
     /* Relocate atags if need be */
     if (settings.atag.start != settings.atag.raddr) {
         self_memcpy(settings.atag.raddr, settings.atag.start, settings.atag.size);
