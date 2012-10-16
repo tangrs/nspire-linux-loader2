@@ -66,7 +66,7 @@ void dump_settings(char * ignored __attribute__((unused))) {
     DUMP_LEVEL0(settings, ramdisk_loaded);
     DUMP_LEVEL0(settings, kernel_loaded);
 
-    printl("kernel_cmdline = %s\n", settings.kernel_cmdline);
+    printl("kernel_cmdline = \"%s\"\n", settings.kernel_cmdline);
     printl("serialnr = 0x%x%x\n", settings.serialnr[0], settings.serialnr[1]);
 
 }

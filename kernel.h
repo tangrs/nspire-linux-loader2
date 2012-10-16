@@ -20,5 +20,6 @@
 #define KERNEL_H
 
 void kernel_boot(char*);
+void kernel_cmdline(char*);
 
 #endif

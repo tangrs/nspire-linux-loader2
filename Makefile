@@ -6,7 +6,7 @@ OBJCOPY := "$(shell which arm-elf-objcopy 2>/dev/null)"
 ifeq (${OBJCOPY},"")
 	OBJCOPY := arm-none-eabi-objcopy
 endif
-EXE = linuxloader.tns
+EXE = linuxloader2.tns
 OBJS = $(patsubst %.c,%.o,$(wildcard *.c))
 DISTDIR = .
 vpath %.tns $(DISTDIR)

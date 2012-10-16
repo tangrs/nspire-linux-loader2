@@ -51,7 +51,7 @@ int cmd_args(char* args, unsigned max_n, ...) {
     Returns 1 if program should gracefully exit
     Returns 0 if further commands can be executed
 */
-#define DEFINE_COMMAND(s, f)   else if (!strncmp(#s, cmd, sizeof(#s)-1)) f(cmd+sizeof(#s))
+#define DEFINE_COMMAND(s, f)   else if (!strncmp(#s, cmd, sizeof(#s)-1)) (cmd[sizeof(#s)-1] ? f(cmd+sizeof(#s)) : f(""))
 int process_cmd(char * cmd) {
     if (*cmd == '\0') return 0;
     else if (!strcmp("exit", cmd)) return 1;
@@ -64,6 +64,7 @@ int process_cmd(char * cmd) {
     DEFINE_COMMAND(kernel, load_kernel);
     DEFINE_COMMAND(initrd, load_ramdisk);
     DEFINE_COMMAND(dump, dump_settings);
+    DEFINE_COMMAND(cmdline, kernel_cmdline);
     DEFINE_COMMAND(boot, kernel_boot);
     /*
         End command list. Do not add any more after here

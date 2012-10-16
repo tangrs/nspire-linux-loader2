@@ -22,7 +22,7 @@
 #include "macros.h"
 
 /* Amount of memory to try extending each time in max_malloc */
-#define INC_BLOCK_SIZE 0x40000
+#define INC_BLOCK_SIZE 0x10000
 
 /*
     Try to alloc the biggest contigious section of memory possible.

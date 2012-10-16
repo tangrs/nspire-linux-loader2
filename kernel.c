@@ -28,6 +28,11 @@ static void self_memcpy(char *dst, char *src, size_t size) {
     while (size--) *dst++ = *src++;
 }
 
+void kernel_cmdline(char * cmdline) {
+    if (strlen(cmdline)) strncpy(settings.kernel_cmdline, cmdline, sizeof(settings.kernel_cmdline)-1);
+    printl("Kernel command line: \"%s\"\n", settings.kernel_cmdline);
+}
+
 void kernel_boot(char * ignored __attribute__((unused))) {
     kentry* entry = (kentry*)settings.kernel.addr;
 

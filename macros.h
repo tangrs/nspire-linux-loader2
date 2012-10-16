@@ -22,8 +22,8 @@
 #include <nspireio.h>
 #include "common.h"
 
-#define ROUND_PAGE_BOUND(x) ((typeof(x))((unsigned)(x)&(PAGE_SIZE-1)))
-#define ROUND_UP_PAGE_BOUND(x) ((typeof(x))((unsigned)(x+PAGE_SIZE-1)&(PAGE_SIZE-1)))
+#define ROUND_PAGE_BOUND(x) ((typeof(x))((unsigned)(x)&~(PAGE_SIZE-1)))
+#define ROUND_UP_PAGE_BOUND(x) ((typeof(x))((unsigned)(x+PAGE_SIZE-1)&~(PAGE_SIZE-1)))
 
 #define printl nio_printf
 

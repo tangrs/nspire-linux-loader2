@@ -65,7 +65,7 @@ void load_ramdisk(const char *filename) {
     size_t ramdisk_size = file_size(filename);
     size_t size_free_memory = mem_block_size_free() - settings.ramdisk.size;
     void* ramdisk_laddr = ((char*)settings.mem_block.start + settings.mem_block.size - ramdisk_size);
-    ramdisk_laddr = ROUND_PAGE_BOUND(settings.ramdisk.addr);
+    ramdisk_laddr = ROUND_PAGE_BOUND(ramdisk_laddr);
     size_t needed_size = ((char*)settings.mem_block.start + settings.mem_block.size)
                         - (char*)ramdisk_laddr;
 
@@ -76,8 +76,9 @@ void load_ramdisk(const char *filename) {
 
     if (needed_size > size_free_memory) {
         printl( "Ramdisk too large!\n"
-                "Tried to load ramdisk needing %u bytes into %u bytes of free space\n",
-                needed_size, size_free_memory);
+                "Tried to load ramdisk needing %u bytes into %u bytes of free space\n"
+                "Original ramdisk size was %u bytes\n",
+                needed_size, size_free_memory, ramdisk_size);
         return;
     }
 
