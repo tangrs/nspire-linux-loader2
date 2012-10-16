@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <os.h>
 #include <nspireio.h>
 #include "common.h"
 #include "macros.h"
@@ -27,7 +28,7 @@ struct params settings = {
     .kernel_ramdisk_size = DEFAULT_RAMDISK_SIZE
 };
 
-int main() {
+int main(int argc, char *argv[]) {
     nio_console csl;
     nio_init(&csl,NIO_MAX_COLS,NIO_MAX_ROWS,0,0,WHITE,BLACK,TRUE);
     nio_set_default(&csl);
@@ -45,6 +46,23 @@ int main() {
     else
         printl("Physical memory at: 0x%p-0x%p\n",
             settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
+
+    if (argc > 1) {
+        FILE *script = fopen(argv[1], "r");
+        if (!script) {
+            printl("Warning: Cannot open script file %s\n", argv[1]);
+        }else{
+            while (!feof(script)) {
+                char cmd[128];
+                if (!fgets(cmd, 128, script)) break;
+                if (cmd[strlen(cmd)-1] == '\n') cmd[strlen(cmd)-1] = '\0';
+                printl("%s\n", cmd);
+                process_cmd(cmd);
+
+            }
+        }
+        fclose(script);
+    }
 
     while (1) {
         char cmd[128];
