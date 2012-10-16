@@ -17,17 +17,32 @@
 */
 
 #include "common.h"
+#include "macros.h"
 
 /*
-    Should detect which calc model and write an appropriate machine number
-    for booting Linux.
+    A conservative approximate of the amount of memory
+    the OS takes up in megabytes.
 
-    return negative value for error
+    Used to estimate the amount of physical memory.
 */
-int detect_machine() {
-    /* Placeholder */
-    settings.machine_id = 3503;
+#define APPROX_OS_SIZE      20
+
+static int guess_memory_size() {
+    size_t mem_mb = settings.mem_block.size / 1024 / 1024;
+    mem_mb += APPROX_OS_SIZE;
+
+    printl("Warning: guessing physical memory parameters\n");
+    if      (mem_mb < 16)   return -1;
+    else if (mem_mb < 32)   settings.phys.size  = 0x2000000; /* 32M */
+    else if (mem_mb < 64)   settings.phys.size  = 0x4000000; /* 64M */
+    else if (mem_mb < 128)  settings.phys.size  = 0x8000000; /* 128M (who knows? ;D) */
+    else                    return -1;
+
     return 0;
+}
+
+void force_guess_memory(char* ignored __attribute__((unused))) {
+    if (guess_memory_size()) printl("Failed to guess memory parameters\n");
 }
 
 /*
@@ -37,6 +52,39 @@ int detect_machine() {
 int detect_memory() {
     /* Placeholder */
     settings.phys.start = (void*)0x10000000;
-    settings.phys.size  = 0x4000000;
+    switch (hwtype()) {
+        case 0:
+            /* Clickpad/original */
+            printl("Detected a non-CX\n");
+            settings.phys.size = 0x2000000;
+            break;
+        case 1:
+            /* CX */
+            printl("Detected a CX\n");
+            settings.phys.size = 0x4000000;
+            break;
+        default:
+            return guess_memory_size();
+    }
+    return 0;
+}
+
+/*
+    Should detect which calc model and write an appropriate machine number
+    for booting Linux.
+
+    return negative value for error
+*/
+int detect_machine() {
+    /* Placeholder */
+    switch (hwtype()) {
+        case 1:
+            settings.machine_id = 3503;
+            break;
+        case 0:
+        default:
+            printl("No machine ID for this platform\n");
+            return -1;
+    }
     return 0;
 }

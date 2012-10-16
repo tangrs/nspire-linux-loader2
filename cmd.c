@@ -22,6 +22,7 @@
 #include "common.h"
 #include "load.h"
 #include "macros.h"
+#include "mach.h"
 #include "memory.h"
 
 
@@ -81,6 +82,7 @@ int process_cmd(char * cmd) {
     DEFINE_COMMAND(rdsize, setget_rdisksize);
     DEFINE_COMMAND(cmdline, kernel_cmdline);
     DEFINE_COMMAND(boot, kernel_boot);
+    DEFINE_COMMAND(probemem, force_guess_memory);
     /*
         End command list. Do not add any more after here
     */
