@@ -41,7 +41,7 @@ int main() {
     if (detect_memory())
         printl("Warning: Could not detect amount of memory!\n");
     else
-        printl("Physical memory at: 0x%p-0x%x\n",
+        printl("Physical memory at: 0x%p-0x%p\n",
             settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 
     while (1) {

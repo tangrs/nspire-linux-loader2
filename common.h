@@ -62,5 +62,7 @@ struct params {
 extern struct params settings;
 
 void dump_settings(char*);
+void setget_mach(char * arg);
+void setget_phys(char * arg);
 
 #endif

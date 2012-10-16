@@ -20,5 +20,6 @@
 #define CMD_H
 
 int process_cmd(char * cmd);
+int cmd_args(char* args, unsigned max_n, ...);
 
 #endif

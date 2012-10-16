@@ -34,6 +34,23 @@
 #define FOOTER_LEVEL1() FOOTER("    ")
 #define FOOTER_LEVEL2() FOOTER("    ")
 
+void setget_mach(char * arg) {
+    int num;
+    if ( (num = strtol(arg, NULL, 10)) ) {
+        settings.machine_id = num;
+    }
+    printl("Machine ID is set to %d\n", settings.machine_id);
+}
+
+void setget_phys(char * arg) {
+    unsigned start, size;
+    if ( (start = strtol(arg, &arg, 16)) && (size = strtol(arg, NULL, 16)) ) {
+        settings.phys.start = (void*)start;
+        settings.phys.size  = size;
+    }
+    printl("Physical memory range is 0x%p-0x%p\n", settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
+}
+
 
 void dump_settings(char * ignored __attribute__((unused))) {
     HEADER_LEVEL0(kernel);
