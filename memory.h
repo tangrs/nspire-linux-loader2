@@ -23,6 +23,8 @@
 #include "common.h"
 
 #define MAX_ATAG_SIZE           (0x8000-0x100)
+#define DEFAULT_RAMDISK_SIZE    0x2000
+
 #define mem_block_size_free() (settings.mem_block.size - settings.kernel.size - settings.ramdisk.size)
 
 

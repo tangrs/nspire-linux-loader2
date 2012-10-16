@@ -54,6 +54,7 @@ struct params {
     int machine_id;
 
     unsigned serialnr[2];
+    unsigned kernel_ramdisk_size;
 
     unsigned ramdisk_loaded:1;
     unsigned kernel_loaded:1;
@@ -64,5 +65,6 @@ extern struct params settings;
 void dump_settings(char*);
 void setget_mach(char * arg);
 void setget_phys(char * arg);
+void setget_rdisksize(char * arg);
 
 #endif

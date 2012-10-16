@@ -78,6 +78,7 @@ int process_cmd(char * cmd) {
     DEFINE_COMMAND(free, show_mem);
     DEFINE_COMMAND(mach, setget_mach);
     DEFINE_COMMAND(phys, setget_phys);
+    DEFINE_COMMAND(rdsize, setget_rdisksize);
     DEFINE_COMMAND(cmdline, kernel_cmdline);
     DEFINE_COMMAND(boot, kernel_boot);
     /*

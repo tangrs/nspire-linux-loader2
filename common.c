@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <os.h>
 #include "macros.h"
 #include "common.h"
 
@@ -51,6 +52,14 @@ void setget_phys(char * arg) {
     printl("Physical memory range is 0x%p-0x%p\n", settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 }
 
+void setget_rdisksize(char * arg) {
+    unsigned num;
+    if ( (num = strtol(arg, NULL, 16)) ) {
+        settings.kernel_ramdisk_size = num;
+    }
+    printl("Kernel RAMDISK size set to %uK\n", settings.kernel_ramdisk_size);
+}
+
 
 void dump_settings(char * ignored __attribute__((unused))) {
     HEADER_LEVEL0(kernel);
@@ -80,6 +89,7 @@ void dump_settings(char * ignored __attribute__((unused))) {
     FOOTER_LEVEL0();
 
     DUMP_LEVEL0(settings, machine_id);
+    DUMP_LEVEL0(settings, kernel_ramdisk_size);
     DUMP_LEVEL0(settings, ramdisk_loaded);
     DUMP_LEVEL0(settings, kernel_loaded);
 

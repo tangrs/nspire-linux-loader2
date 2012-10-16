@@ -23,7 +23,9 @@
 #include "cmd.h"
 #include "mach.h"
 
-struct params settings;
+struct params settings = {
+    .kernel_ramdisk_size = DEFAULT_RAMDISK_SIZE
+};
 
 int main() {
     nio_console csl;
