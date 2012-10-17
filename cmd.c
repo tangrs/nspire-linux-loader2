@@ -83,6 +83,8 @@ int process_cmd(char * cmd) {
     DEFINE_COMMAND(cmdline, kernel_cmdline);
     DEFINE_COMMAND(boot, kernel_boot);
     DEFINE_COMMAND(probemem, force_guess_memory);
+    DEFINE_COMMAND(poke, poke);
+    DEFINE_COMMAND(peek, peek);
     /*
         End command list. Do not add any more after here
     */

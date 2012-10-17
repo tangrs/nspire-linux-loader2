@@ -45,7 +45,7 @@ void setget_mach(char * arg) {
 
 void setget_phys(char * arg) {
     unsigned start, size;
-    if ( (start = strtol(arg, &arg, 16)) && (size = strtol(arg, NULL, 16)) ) {
+    if ( (start = strtoul(arg, &arg, 16)) && (size = strtoul(arg, NULL, 16)) ) {
         settings.phys.start = (void*)start;
         settings.phys.size  = size;
     }
@@ -54,12 +54,33 @@ void setget_phys(char * arg) {
 
 void setget_rdisksize(char * arg) {
     unsigned num;
-    if ( (num = strtol(arg, NULL, 16)) ) {
+    if ( (num = strtoul(arg, NULL, 16)) ) {
         settings.kernel_ramdisk_size = num;
     }
     printl("Kernel RAMDISK size set to %uK\n", settings.kernel_ramdisk_size);
 }
 
+void peek(char * arg) {
+    unsigned addr;
+    if ( (addr = strtoul(arg, NULL, 16)) ) {
+        if (addr & 0b11) {
+            printl("Warning: Address 0x%x is not word-aligned\n");
+        } else {
+            printl("*0x%x = 0x%x\n", addr, *(volatile unsigned*)addr);
+        }
+    }
+}
+
+void poke(char *arg) {
+    unsigned addr, value;
+    char *nextarg;
+    if ( (addr = strtoul(arg, &nextarg, 16)) && (value = strtoul(nextarg, NULL, 16)) ) {
+        if (!(addr & 0b11)) {
+            *(volatile unsigned*)addr = value;
+        }
+    }
+    peek(arg);
+}
 
 void dump_settings(char * ignored __attribute__((unused))) {
     HEADER_LEVEL0(kernel);

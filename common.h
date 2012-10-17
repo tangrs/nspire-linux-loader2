@@ -67,4 +67,7 @@ void setget_mach(char * arg);
 void setget_phys(char * arg);
 void setget_rdisksize(char * arg);
 
+void poke(char *arg);
+void peek(char *arg);
+
 #endif
