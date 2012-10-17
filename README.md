@@ -29,6 +29,9 @@ Valid commands are:
  * ```mach [id]```: Get/set the machine ID that will be provided to Linux upon booting. Useful for overriding the builtin default value without having to recompile.
  * ```phys [<start> <size>]```: Get/set the address and size of physical memory. Useful for overriding the builtin default value without having to recompile.
  * ```rdsize [size]```: Get/set the size of the ramdisk that Linux should create on boot. Leave at ```0x0``` for the kernel default.
+ * ```probemem```: If this is run on an calculator model that isn't directly supported by the bootloader, you can use this to try and guess how much memory the system has.
+ * ```poke <addr> <value>```: Write a word to an arbitrary location in the memory address space.
+ * ```peek <addr>```: Read a word from an arbitrary location in the memory address space.
  * ```boot```: Boot kernel.
 
 The bootloader is also scriptable. Create a text file containing a list of commands to be executed and change the extension to ```.ll2.tns```, and add the following line to your ```/documents/ndless/ndless.cfg.tns``` file.
