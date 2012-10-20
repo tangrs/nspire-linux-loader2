@@ -65,8 +65,8 @@ int main(int argc, char *argv[]) {
                 process_cmd(cmd);
 
             }
+            fclose(script);
         }
-        fclose(script);
     }
 
     while (1) {
