@@ -78,5 +78,6 @@ int main(int argc, char *argv[]) {
     }
 
     free_memory();
+    nio_free(&csl);
     return 0;
 }
