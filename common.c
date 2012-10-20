@@ -110,6 +110,7 @@ void dump_settings(char * ignored __attribute__((unused))) {
     FOOTER_LEVEL0();
 
     DUMP_LEVEL0(settings, machine_id);
+    DUMP_LEVEL0(settings, rev);
     DUMP_LEVEL0(settings, kernel_ramdisk_size);
     DUMP_LEVEL0(settings, ramdisk_loaded);
     DUMP_LEVEL0(settings, kernel_loaded);

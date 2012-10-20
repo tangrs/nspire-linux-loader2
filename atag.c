@@ -139,6 +139,9 @@ int atag_build() {
         ATAG(ATAG_INITRD2, settings.ramdisk.addr, settings.ramdisk.size);
     if (settings.kernel_ramdisk_size)
         ATAG(ATAG_RAMDISK, 0, settings.kernel_ramdisk_size, 0);
+
+    ATAG(ATAG_SERIAL, settings.serialnr[0], settings.serialnr[1]);
+    ATAG(ATAG_REVISION, settings.rev);
     /*
         End list. Stop here
     */

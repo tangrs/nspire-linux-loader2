@@ -54,6 +54,7 @@ struct params {
     int machine_id;
 
     unsigned serialnr[2];
+    unsigned rev;
     unsigned kernel_ramdisk_size;
 
     unsigned ramdisk_loaded:1;

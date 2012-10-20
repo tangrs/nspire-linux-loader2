@@ -22,5 +22,6 @@
 int detect_machine();
 int detect_memory();
 void force_guess_memory();
+int detect_serialnr();
 
 #endif

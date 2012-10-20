@@ -45,6 +45,13 @@ int main(int argc, char *argv[]) {
         printl("Physical memory at: 0x%p-0x%p\n",
             settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 
+    if (detect_serialnr())
+        printl("Warning: Could not get serial number!\n");
+    else
+        printl("Serial number: %x%x rev%d (%s)\n",
+                settings.serialnr[1], settings.serialnr[0], settings.rev,
+                settings.rev?"CAS":"Non-CAS");
+
     if (argc > 1) {
         FILE *script = fopen(argv[1], "r");
         if (!script) {

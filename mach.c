@@ -16,6 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdint.h>
+
 #include "common.h"
 #include "macros.h"
 
@@ -88,3 +90,31 @@ int detect_machine() {
     }
     return 0;
 }
+
+/*
+    Detect serial number and revision and write it
+
+    return negative value for error
+*/
+#define ADD_BITS(v,r,x,y) do { \
+        unsigned len = ((y)-(x)+1); \
+        v <<= len; \
+        v  |= ((r)>>(x)) & ~(~0<<len); \
+    } while (0)
+static int __attribute__((unused)) _detect_serialnr_assert[sizeof(uint64_t)>=8?1:-1];
+int detect_serialnr() {
+    uint64_t serial = 0, raw_serial = *(uint64_t*)0x900A0028;
+
+    ADD_BITS(serial, raw_serial, 33, 55);
+    ADD_BITS(serial, raw_serial, 17, 31);
+    ADD_BITS(serial, raw_serial, 9, 15);
+    ADD_BITS(serial, raw_serial, 5, 7);
+    ADD_BITS(serial, raw_serial, 3, 3);
+
+    settings.serialnr[0] = (unsigned)serial;
+    settings.serialnr[1] = (unsigned)(serial>>32);
+    settings.rev = (raw_serial>>58) & 0x1F;
+
+    return 0;
+}
+#undef ADD_BITS
