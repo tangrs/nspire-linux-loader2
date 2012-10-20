@@ -101,7 +101,7 @@ int detect_machine() {
         v <<= len; \
         v  |= ((r)>>(x)) & ~(~0<<len); \
     } while (0)
-static int __attribute__((unused)) _detect_serialnr_assert[sizeof(uint64_t)>=8?1:-1];
+
 int detect_serialnr() {
     uint64_t serial = 0, raw_serial = *(uint64_t*)0x900A0028;
 
