@@ -95,7 +95,6 @@ void dump_settings(char * ignored __attribute__((unused))) {
 
     HEADER_LEVEL0(atag);
         DUMP_LEVEL1(settings.atag, start);
-        DUMP_LEVEL1(settings.atag, raddr);
         DUMP_LEVEL1(settings.atag, size);
     FOOTER_LEVEL0();
 
@@ -116,6 +115,6 @@ void dump_settings(char * ignored __attribute__((unused))) {
     DUMP_LEVEL0(settings, kernel_loaded);
 
     printl("kernel_cmdline = \"%s\"\n", settings.kernel_cmdline);
-    printl("serialnr = 0x%x%x\n", settings.serialnr[0], settings.serialnr[1]);
+    printl("serialnr = 0x%x%x\n", settings.serialnr[1], settings.serialnr[0]);
 
 }

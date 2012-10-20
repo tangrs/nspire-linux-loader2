@@ -35,7 +35,6 @@ struct params {
 
     struct {
         void* start;        /* A separate section of memory for writing ATAGs */
-        void* raddr;        /* Where the atags should be relocated to during booting */
         size_t size;
     } atag;
 

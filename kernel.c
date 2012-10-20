@@ -24,10 +24,6 @@
 
 typedef void kentry(int, int, void*);
 
-static void self_memcpy(char *dst, char *src, size_t size) {
-    while (size--) *dst++ = *src++;
-}
-
 void kernel_cmdline(char * cmdline) {
     if (strlen(cmdline)) strncpy(settings.kernel_cmdline, cmdline, sizeof(settings.kernel_cmdline)-1);
     printl("Kernel command line: \"%s\"\n", settings.kernel_cmdline);
@@ -45,14 +41,6 @@ void kernel_boot(char * ignored __attribute__((unused))) {
     /* Build atag next */
     if (atag_build()) return;
 
-    if (!settings.atag.raddr) settings.atag.raddr = settings.atag.start;
-
-    /* Relocate atags if need be */
-    if (settings.atag.start != settings.atag.raddr) {
-        self_memcpy(settings.atag.raddr, settings.atag.start, settings.atag.size);
-    }
-
-
     clear_cache();
     /* Disable D-Cache and MMU */
     asm volatile("mrc p15, 0, r0, c1, c0, 0 \n"
@@ -60,6 +48,6 @@ void kernel_boot(char * ignored __attribute__((unused))) {
                  "mcr p15, 0, r0, c1, c0,0 \n"
                  : : : "r0" );
     /* Bye bye */
-    entry(0, settings.machine_id, settings.atag.raddr);
+    entry(0, settings.machine_id, settings.atag.start);
     __builtin_unreachable();
 }
