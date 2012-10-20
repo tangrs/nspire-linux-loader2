@@ -69,6 +69,14 @@ void load_ramdisk(const char *filename) {
     size_t needed_size = ((char*)settings.mem_block.start + settings.mem_block.size)
                         - (char*)ramdisk_laddr;
 
+    if (!strlen(filename) && settings.ramdisk_loaded) {
+        settings.ramdisk_loaded = 0;
+        settings.ramdisk.addr = NULL;
+        settings.ramdisk.size = 0;
+        printl("Unloaded ramdisk\n");
+        return;
+    }
+
     if (!ramdisk_size) {
         printl("Ramdisk doesn't exist or empty\n");
         return;
