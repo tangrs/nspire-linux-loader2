@@ -20,11 +20,12 @@
 #define MACROS_H
 
 #include <nspireio.h>
+#include <os.h>
 #include "common.h"
 
 #define ROUND_PAGE_BOUND(x) ((typeof(x))((unsigned)(x)&~(PAGE_SIZE-1)))
 #define ROUND_UP_PAGE_BOUND(x) ((typeof(x))((unsigned)(x+PAGE_SIZE-1)&~(PAGE_SIZE-1)))
 
-#define printl nio_printf
+#define printl(...) do { nio_printf(__VA_ARGS__); printf(__VA_ARGS__); } while(0)
 
 #endif
