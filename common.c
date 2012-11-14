@@ -64,7 +64,7 @@ void peek(char * arg) {
     unsigned addr;
     if ( (addr = strtoul(arg, NULL, 16)) ) {
         if (addr & 0b11) {
-            printl("Warning: Address 0x%x is not word-aligned\n");
+            printl("Warning: Address 0x%x is not word-aligned\n", addr);
         } else {
             printl("*0x%x = 0x%x\n", addr, *(volatile unsigned*)addr);
         }
