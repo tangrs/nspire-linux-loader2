@@ -67,6 +67,7 @@ int cmd_args(char* args, unsigned max_n, ...) {
 int process_cmd(char * cmd) {
     if (*cmd == '\0') return 0;
     else if (!strcmp("exit", cmd)) return 1;
+    else if (!strcmp("q", cmd)) return 1;
     /*
         Define custom commands below
         DEFINE_COMMAND( function_name, function_to_call );
