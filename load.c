@@ -33,20 +33,20 @@ void load_kernel(const char *filename) {
     FILE* f;
 
     if (!kernel_size) {
-        printl("Kernel doesn't exist or empty\n");
+        printl("Kernel doesn't exist or empty" NEWLINE);
         return;
     }
 
     if (kernel_size > size_free_memory) {
-        printl( "Kernel too large!\n"
-                "Tried to load kernel of %u bytes into %u bytes of free space\n",
+        printl( "Kernel too large!" NEWLINE
+                "Tried to load kernel of %u bytes into %u bytes of free space" NEWLINE,
                 kernel_size, size_free_memory);
         return;
     }
 
     f = fopen(filename, "rb");
     if (!f) {
-        printl("Failed to open kernel image %s\n", filename);
+        printl("Failed to open kernel image %s" NEWLINE, filename);
         return;
     }
 
@@ -54,9 +54,9 @@ void load_kernel(const char *filename) {
     settings.kernel.size = fread(settings.kernel.addr, 1, kernel_size, f);
     settings.kernel_loaded = !!(settings.kernel.size);
 
-    if (settings.kernel.size != kernel_size) printl("Warning: read less data from file than expected\n");
+    if (settings.kernel.size != kernel_size) printl("Warning: read less data from file than expected" NEWLINE);
 
-    printl("Kernel successfully loaded\n");
+    printl("Kernel successfully loaded" NEWLINE);
     return;
 }
 
@@ -73,26 +73,26 @@ void load_ramdisk(const char *filename) {
         settings.ramdisk_loaded = 0;
         settings.ramdisk.addr = NULL;
         settings.ramdisk.size = 0;
-        printl("Unloaded ramdisk\n");
+        printl("Unloaded ramdisk" NEWLINE);
         return;
     }
 
     if (!ramdisk_size) {
-        printl("Ramdisk doesn't exist or empty\n");
+        printl("Ramdisk doesn't exist or empty" NEWLINE);
         return;
     }
 
     if (needed_size > size_free_memory) {
-        printl( "Ramdisk too large!\n"
-                "Tried to load ramdisk needing %u bytes into %u bytes of free space\n"
-                "Original ramdisk size was %u bytes\n",
+        printl( "Ramdisk too large!" NEWLINE
+                "Tried to load ramdisk needing %u bytes into %u bytes of free space" NEWLINE
+                "Original ramdisk size was %u bytes" NEWLINE,
                 needed_size, size_free_memory, ramdisk_size);
         return;
     }
 
     f = fopen(filename, "rb");
     if (!f) {
-        printl("Failed to open ramdisk image %s\n", filename);
+        printl("Failed to open ramdisk image %s" NEWLINE, filename);
         return;
     }
 
@@ -100,10 +100,10 @@ void load_ramdisk(const char *filename) {
     settings.ramdisk.size = needed_size;
 
     if (fread(settings.ramdisk.addr, 1, ramdisk_size, f) != ramdisk_size)
-        printl("Warning: read less data from file than expected\n");
+        printl("Warning: read less data from file than expected" NEWLINE);
 
     settings.ramdisk_loaded = !!(settings.ramdisk.size);
 
-    printl("Ramdisk successfully loaded\n");
+    printl("Ramdisk successfully loaded" NEWLINE);
     return;
 }

@@ -17,7 +17,7 @@
 */
 
 #include <os.h>
-#include <nspireio.h>
+#include <nspireio2.h>
 #include "common.h"
 #include "macros.h"
 #include "memory.h"
@@ -25,43 +25,42 @@
 #include "mach.h"
 
 struct params settings;
+nio_console csl;
 
 int main(int argc, char *argv[]) {
-    nio_console csl;
-    nio_init(&csl,NIO_MAX_COLS,NIO_MAX_ROWS,0,0,WHITE,BLACK,TRUE);
-    nio_set_default(&csl);
+    nio_InitConsole(&csl,SCREEN_WIDTH,SCREEN_HEIGHT,0,0,WHITE,BLACK);
 
-    printl("Linux in-place bootloader v2\n");
+    printl("Linux in-place bootloader v2" NEWLINE);
     alloc_memory();
 
     if (detect_machine())
-        printl("Warning: Could not detect machine number!\n");
+        printl("Warning: Could not detect machine number!" NEWLINE);
     else
-        printl("Machine number: %d\n", settings.machine_id);
+        printl("Machine number: %d" NEWLINE, settings.machine_id);
 
     if (detect_memory())
-        printl("Warning: Could not detect amount of memory!\n");
+        printl("Warning: Could not detect amount of memory!" NEWLINE);
     else
-        printl("Physical memory at: 0x%p-0x%p\n",
+        printl("Physical memory at: 0x%p-0x%p" NEWLINE,
             settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 
     if (detect_serialnr())
-        printl("Warning: Could not get serial number!\n");
+        printl("Warning: Could not get serial number!" NEWLINE);
     else
-        printl("Serial number: %x%x rev%d (%s)\n",
+        printl("Serial number: %x%x rev%d (%s)" NEWLINE,
                 settings.serialnr[1], settings.serialnr[0], settings.rev,
                 settings.rev?"CAS":"Non-CAS");
 
     if (argc > 1) {
         FILE *script = fopen(argv[1], "r");
         if (!script) {
-            printl("Warning: Cannot open script file %s\n", argv[1]);
+            printl("Warning: Cannot open script file %s" NEWLINE, argv[1]);
         }else{
             while (!feof(script)) {
                 char cmd[128];
                 if (!fgets(cmd, 128, script)) break;
                 if (cmd[strlen(cmd)-1] == '\n') cmd[strlen(cmd)-1] = '\0';
-                printl("%s\n", cmd);
+                printl("%s" NEWLINE, cmd);
                 process_cmd(cmd);
 
             }
@@ -71,13 +70,13 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         char cmd[128];
-        nio_printf("> ");
-        if (nio_gets(cmd)) {
+        nio_printf(&csl, "> ");
+        if (nio_GetStr(&csl, cmd)) {
             if (process_cmd(cmd)) break;
         }
     }
 
     free_memory();
-    nio_free(&csl);
+    nio_CleanUp(&csl);
     return 0;
 }

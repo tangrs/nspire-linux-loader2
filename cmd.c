@@ -88,7 +88,7 @@ int process_cmd(char * cmd) {
     /*
         End command list. Do not add any more after here
     */
-    else { printl("Unknown command\n"); }
+    else { printl("Unknown command" NEWLINE); }
     return 0;
 }
 #undef DEFINE_COMMAND

@@ -58,19 +58,19 @@ void show_mem(char *ignored __attribute__((unused))) {
         HUMAN(mem_block_size_free());
         printl("/");
         HUMAN(settings.mem_block.size);
-        printl("\n");
+        printl("" NEWLINE);
 
         printl("Kernel:  ");
         HUMAN(settings.kernel.size);
         printl("/");
         HUMAN(settings.mem_block.size);
-        printl("\n");
+        printl("" NEWLINE);
 
         printl("Ramdisk: ");
         HUMAN(settings.ramdisk.size);
         printl("/");
         HUMAN(settings.mem_block.size);
-        printl("\n");
+        printl("" NEWLINE);
 }
 
 #undef HUMAN
@@ -104,8 +104,8 @@ void alloc_memory() {
     /* Allocate as much remaining memory as possible */
     settings.mem_block.start = max_malloc(&settings.mem_block.size);
 
-    printl( "Allocated memory:\n"
-            "   ATAGs:                 %u bytes\n"
-            "   Kernel and ramdisk:    %u bytes\n",
+    printl( "Allocated memory:" NEWLINE
+            "   ATAGs:                 %u bytes" NEWLINE
+            "   Kernel and ramdisk:    %u bytes" NEWLINE,
             settings.atag.size, settings.mem_block.size);
 }

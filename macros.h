@@ -19,13 +19,19 @@
 #ifndef MACROS_H
 #define MACROS_H
 
-#include <nspireio.h>
+#include <nspireio2.h>
 #include <os.h>
 #include "common.h"
 
 #define ROUND_PAGE_BOUND(x) ((typeof(x))((unsigned)(x)&~(PAGE_SIZE-1)))
 #define ROUND_UP_PAGE_BOUND(x) ((typeof(x))((unsigned)(x+PAGE_SIZE-1)&~(PAGE_SIZE-1)))
 
-#define printl(...) do { nio_printf(__VA_ARGS__); printf(__VA_ARGS__); } while(0)
+#define printl(...) do { \
+        extern nio_console csl; \
+        nio_printf(&csl, __VA_ARGS__); \
+        uart_printf(__VA_ARGS__); \
+    } while(0)
 
+
+#define NEWLINE "\r\n"
 #endif

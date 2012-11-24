@@ -26,14 +26,14 @@ typedef void kentry(int, int, void*);
 
 void kernel_cmdline(char * cmdline) {
     if (strlen(cmdline)) strncpy(settings.kernel_cmdline, cmdline, sizeof(settings.kernel_cmdline)-1);
-    printl("Kernel command line: \"%s\"\n", settings.kernel_cmdline);
+    printl("Kernel command line: \"%s\"" NEWLINE, settings.kernel_cmdline);
 }
 
 void kernel_boot(char * ignored __attribute__((unused))) {
     kentry* entry = (kentry*)settings.kernel.addr;
 
     if (!settings.kernel_loaded) {
-        printl("Kernel not loaded.\n");
+        printl("Kernel not loaded." NEWLINE);
         return;
     }
 
@@ -43,9 +43,9 @@ void kernel_boot(char * ignored __attribute__((unused))) {
 
     clear_cache();
     /* Disable D-Cache and MMU */
-    asm volatile("mrc p15, 0, r0, c1, c0, 0 \n"
-                 "bic r0, r0, #0x5 \n"
-                 "mcr p15, 0, r0, c1, c0,0 \n"
+    asm volatile("mrc p15, 0, r0, c1, c0, 0 " NEWLINE
+                 "bic r0, r0, #0x5 " NEWLINE
+                 "mcr p15, 0, r0, c1, c0,0 " NEWLINE
                  : : : "r0" );
     /* Bye bye */
     entry(0, settings.machine_id, settings.atag.start);

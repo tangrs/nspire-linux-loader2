@@ -33,7 +33,7 @@ static int guess_memory_size() {
     size_t mem_mb = settings.mem_block.size / 1024 / 1024;
     mem_mb += APPROX_OS_SIZE;
 
-    printl("Warning: guessing physical memory parameters\n");
+    printl("Warning: guessing physical memory parameters" NEWLINE);
     if      (mem_mb < 16)   return -1;
     else if (mem_mb < 32)   settings.phys.size  = 0x2000000; /* 32M */
     else if (mem_mb < 64)   settings.phys.size  = 0x4000000; /* 64M */
@@ -44,7 +44,7 @@ static int guess_memory_size() {
 }
 
 void force_guess_memory(char* ignored __attribute__((unused))) {
-    if (guess_memory_size()) printl("Failed to guess memory parameters\n");
+    if (guess_memory_size()) printl("Failed to guess memory parameters" NEWLINE);
 }
 
 /*
@@ -57,12 +57,12 @@ int detect_memory() {
     switch (hwtype()) {
         case 0:
             /* Clickpad/original */
-            printl("Detected a non-CX\n");
+            printl("Detected a non-CX" NEWLINE);
             settings.phys.size = 0x2000000;
             break;
         case 1:
             /* CX */
-            printl("Detected a CX\n");
+            printl("Detected a CX" NEWLINE);
             settings.phys.size = 0x4000000;
             break;
         default:
@@ -80,12 +80,15 @@ int detect_memory() {
 int detect_machine() {
     /* Placeholder */
     switch (hwtype()) {
-        case 1:
-            settings.machine_id = 3503;
-            break;
         case 0:
+            if (!is_touchpad)   settings.machine_id = 4441;
+            else                settings.machine_id = 4442;
+            break;
+        case 1:
+            settings.machine_id = 4443;
+            break;
         default:
-            printl("No machine ID for this platform\n");
+            printl("No machine ID for this platform" NEWLINE);
             return -1;
     }
     return 0;

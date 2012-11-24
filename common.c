@@ -20,17 +20,17 @@
 #include "macros.h"
 #include "common.h"
 
-#define DUMP(n, s, x) printl( n #x " = 0x%x\n", (unsigned)(s.x) );
+#define DUMP(n, s, x) printl( n #x " = 0x%x" NEWLINE, (unsigned)(s.x) );
 #define DUMP_LEVEL0(s, x) DUMP("", s, x)
 #define DUMP_LEVEL1(s, x) DUMP("    ", s, x)
 #define DUMP_LEVEL2(s, x) DUMP("        ", s, x)
 
-#define HEADER(n, s) printl(n #s " = {\n");
+#define HEADER(n, s) printl(n #s " = {" NEWLINE);
 #define HEADER_LEVEL0(s) HEADER("", s)
 #define HEADER_LEVEL1(s) HEADER("    ", s)
 #define HEADER_LEVEL2(s) HEADER("        ", s)
 
-#define FOOTER(n) printl(n "}\n");
+#define FOOTER(n) printl(n "}" NEWLINE);
 #define FOOTER_LEVEL0() FOOTER("")
 #define FOOTER_LEVEL1() FOOTER("    ")
 #define FOOTER_LEVEL2() FOOTER("    ")
@@ -40,7 +40,7 @@ void setget_mach(char * arg) {
     if ( (num = strtol(arg, NULL, 10)) ) {
         settings.machine_id = num;
     }
-    printl("Machine ID is set to %d\n", settings.machine_id);
+    printl("Machine ID is set to %d" NEWLINE, settings.machine_id);
 }
 
 void setget_phys(char * arg) {
@@ -49,7 +49,7 @@ void setget_phys(char * arg) {
         settings.phys.start = (void*)start;
         settings.phys.size  = size;
     }
-    printl("Physical memory range is 0x%p-0x%p\n", settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
+    printl("Physical memory range is 0x%p-0x%p" NEWLINE, settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 }
 
 void setget_rdisksize(char * arg) {
@@ -57,16 +57,16 @@ void setget_rdisksize(char * arg) {
     if ( (num = strtoul(arg, NULL, 16)) ) {
         settings.kernel_ramdisk_size = num;
     }
-    printl("Kernel RAMDISK size set to %uK\n", settings.kernel_ramdisk_size);
+    printl("Kernel RAMDISK size set to %uK" NEWLINE, settings.kernel_ramdisk_size);
 }
 
 void peek(char * arg) {
     unsigned addr;
     if ( (addr = strtoul(arg, NULL, 16)) ) {
         if (addr & 0b11) {
-            printl("Warning: Address 0x%x is not word-aligned\n", addr);
+            printl("Warning: Address 0x%x is not word-aligned" NEWLINE, addr);
         } else {
-            printl("*0x%x = 0x%x\n", addr, *(volatile unsigned*)addr);
+            printl("*0x%x = 0x%x" NEWLINE, addr, *(volatile unsigned*)addr);
         }
     }
 }
@@ -114,7 +114,7 @@ void dump_settings(char * ignored __attribute__((unused))) {
     DUMP_LEVEL0(settings, ramdisk_loaded);
     DUMP_LEVEL0(settings, kernel_loaded);
 
-    printl("kernel_cmdline = \"%s\"\n", settings.kernel_cmdline);
-    printl("serialnr = 0x%x%x\n", settings.serialnr[1], settings.serialnr[0]);
+    printl("kernel_cmdline = \"%s\"" NEWLINE, settings.kernel_cmdline);
+    printl("serialnr = 0x%x%x" NEWLINE, settings.serialnr[1], settings.serialnr[0]);
 
 }

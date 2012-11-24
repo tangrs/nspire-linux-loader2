@@ -115,7 +115,7 @@ static void* atag_begin(void *head) {
 
 #define ATAG(...) do { \
         if (current > (char*)settings.atag.start + settings.atag.size) { \
-            printl("Internal error. ATAG buffer overrun\n"); \
+            printl("Internal error. ATAG buffer overrun" NEWLINE); \
             return -1; \
         } \
         current = atag_add(current, __VA_ARGS__); \
@@ -124,7 +124,7 @@ static void* atag_begin(void *head) {
 int atag_build() {
     char *current;
     if (!settings.atag.start) {
-        printl("Internal error. settings.atag.start = NULL\n");
+        printl("Internal error. settings.atag.start = NULL" NEWLINE);
         return -1;
     }
     current = atag_begin(settings.atag.start);
