@@ -43,9 +43,9 @@ void kernel_boot(char * ignored __attribute__((unused))) {
 
     clear_cache();
     /* Disable D-Cache and MMU */
-    asm volatile("mrc p15, 0, r0, c1, c0, 0 " NEWLINE
-                 "bic r0, r0, #0x5 " NEWLINE
-                 "mcr p15, 0, r0, c1, c0,0 " NEWLINE
+    asm volatile("mrc p15, 0, r0, c1, c0, 0 \n"
+                 "bic r0, r0, #0x5 \n"
+                 "mcr p15, 0, r0, c1, c0,0 \n"
                  : : : "r0" );
     /* Bye bye */
     entry(0, settings.machine_id, settings.atag.start);

@@ -17,7 +17,7 @@
 */
 
 #include <os.h>
-#include <nspireio2.h>
+#include <nspireio.h>
 #include "common.h"
 #include "macros.h"
 #include "memory.h"
@@ -25,10 +25,15 @@
 #include "mach.h"
 
 struct params settings;
-nio_console csl;
 
 int main(int argc, char *argv[]) {
-    nio_InitConsole(&csl,SCREEN_WIDTH,SCREEN_HEIGHT,0,0,WHITE,BLACK);
+    nio_console csl;
+    nio_init(&csl,
+            NIO_MAX_COLS,NIO_MAX_ROWS,
+            0,0,
+            NIO_COLOR_WHITE,NIO_COLOR_BLACK,
+            TRUE);
+    nio_set_default(&csl);
 
     printl("Linux in-place bootloader v2" NEWLINE);
     alloc_memory();
@@ -70,13 +75,13 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         char cmd[128];
-        nio_printf(&csl, "> ");
-        if (nio_GetStr(&csl, cmd)) {
+        nio_puts("> ");
+        if (nio_gets(cmd)) {
             if (process_cmd(cmd)) break;
         }
     }
 
     free_memory();
-    nio_CleanUp(&csl);
+    nio_free(&csl);
     return 0;
 }
