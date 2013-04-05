@@ -107,3 +107,30 @@ void load_ramdisk(const char *filename) {
     printl("Ramdisk successfully loaded" NEWLINE);
     return;
 }
+
+void load_dtb(const char *filename) {
+    FILE* f;
+    size_t dtb_size = file_size(filename);
+
+    if (dtb_size > settings.boot_param.size) {
+        printl("DTB image too large!" NEWLINE);
+        return;
+    }
+
+    f = fopen(filename, "rb");
+    if (!f) {
+        printl("Failed to open dtb image %s" NEWLINE, filename);
+        return;
+    }
+
+    if (fread(settings.boot_param.start, 1, dtb_size, f) != dtb_size)
+        printl("Warning: read less data from file than expected" NEWLINE);
+
+    fclose(f);
+
+    settings.dtb_loaded = 1;
+    settings.machine_id = DTB_MACH_ID;
+
+    printl("DTB successfully loaded" NEWLINE);
+    return;
+}

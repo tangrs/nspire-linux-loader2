@@ -76,13 +76,13 @@ void show_mem(char *ignored __attribute__((unused))) {
 #undef HUMAN
 
 void free_memory() {
-    free(settings.atag.start);
+    free(settings.boot_param.start);
     free(settings.mem_block.start);
 
-    settings.atag.start = NULL;
+    settings.boot_param.start = NULL;
     settings.mem_block.start = NULL;
 
-    settings.atag.size = 0;
+    settings.boot_param.size = 0;
     settings.mem_block.size = 0;
 
     settings.kernel.size = 0;
@@ -98,8 +98,9 @@ void free_memory() {
 void alloc_memory() {
     free_memory();
 
-    settings.atag.start = malloc(MAX_ATAG_SIZE);
-    if (settings.atag.start) settings.atag.size = MAX_ATAG_SIZE;
+    settings.boot_param.start = malloc(MAX_BOOT_PARAM_SIZE);
+    if (settings.boot_param.start)
+        settings.boot_param.size = MAX_BOOT_PARAM_SIZE;
 
     /* Allocate as much remaining memory as possible */
     settings.mem_block.start = max_malloc(&settings.mem_block.size);
@@ -107,5 +108,5 @@ void alloc_memory() {
     printl( "Allocated memory:" NEWLINE
             "   ATAGs:                 %u bytes" NEWLINE
             "   Kernel and ramdisk:    %u bytes" NEWLINE,
-            settings.atag.size, settings.mem_block.size);
+            settings.boot_param.size, settings.mem_block.size);
 }

@@ -39,7 +39,9 @@ void kernel_boot(char * ignored __attribute__((unused))) {
 
     /* Kernels and ramdisks should already be loaded to their correct places */
     /* Build atag next */
-    if (atag_build()) return;
+    if (!settings.dtb_loaded) {
+       if (atag_build()) return;
+    }
 
     clear_cache();
     /* Disable D-Cache and MMU */
@@ -48,6 +50,6 @@ void kernel_boot(char * ignored __attribute__((unused))) {
                  "mcr p15, 0, r0, c1, c0,0 \n"
                  : : : "r0" );
     /* Bye bye */
-    entry(0, settings.machine_id, settings.atag.start);
+    entry(0, settings.machine_id, settings.boot_param.start);
     __builtin_unreachable();
 }

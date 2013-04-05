@@ -21,6 +21,7 @@
 #include <stddef.h>
 
 #define PAGE_SIZE 0x1000
+#define DTB_MACH_ID 3503
 
 struct params {
     struct {
@@ -34,9 +35,9 @@ struct params {
     } ramdisk;
 
     struct {
-        void* start;        /* A separate section of memory for writing ATAGs */
+        void* start;        /* A separate section of memory for writing ATAG and DTBs */
         size_t size;
-    } atag;
+    } boot_param;
 
     struct {
         void* start;        /* Memory block for kernel and ramdisk */
@@ -58,6 +59,7 @@ struct params {
 
     unsigned ramdisk_loaded:1;
     unsigned kernel_loaded:1;
+    unsigned dtb_loaded:1;
 };
 
 extern struct params settings;

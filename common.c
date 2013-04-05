@@ -94,8 +94,8 @@ void dump_settings(char * ignored __attribute__((unused))) {
     FOOTER_LEVEL0();
 
     HEADER_LEVEL0(atag);
-        DUMP_LEVEL1(settings.atag, start);
-        DUMP_LEVEL1(settings.atag, size);
+        DUMP_LEVEL1(settings.boot_param, start);
+        DUMP_LEVEL1(settings.boot_param, size);
     FOOTER_LEVEL0();
 
     HEADER_LEVEL0(mem_block);

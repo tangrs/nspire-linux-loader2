@@ -76,6 +76,7 @@ int process_cmd(char * cmd) {
     */
     DEFINE_COMMAND(kernel, load_kernel);
     DEFINE_COMMAND(initrd, load_ramdisk);
+    DEFINE_COMMAND(dtb, load_dtb);
     DEFINE_COMMAND(dump, dump_settings);
     DEFINE_COMMAND(free, show_mem);
     DEFINE_COMMAND(mach, setget_mach);

@@ -88,7 +88,10 @@ int detect_machine() {
             settings.machine_id = 4443;
             break;
         default:
-            printl("No machine ID for this platform" NEWLINE);
+            printl( "No machine ID for this platform." NEWLINE
+                    "Defaulting to DTB machine number %d." NEWLINE,
+                    DTB_MACH_ID);
+            settings.machine_id = DTB_MACH_ID;
             return -1;
     }
     return 0;
