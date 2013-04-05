@@ -26,6 +26,12 @@
 
 struct params settings;
 
+#ifdef GIT_COMMIT
+#define GIT_TEXT " (" GIT_COMMIT ")"
+#else
+#define GIT_TEXT
+#endif
+
 int main(int argc, char *argv[]) {
     nio_console csl;
     nio_init(&csl,
@@ -35,7 +41,11 @@ int main(int argc, char *argv[]) {
             TRUE);
     nio_set_default(&csl);
 
-    printl("Linux in-place bootloader v2" NEWLINE);
+    printl("Linux in-place bootloader v2" GIT_TEXT NEWLINE);
+#ifdef BUILD_DATE
+    printl("Build date: " BUILD_DATE NEWLINE);
+#endif
+
     alloc_memory();
 
     if (detect_machine())
