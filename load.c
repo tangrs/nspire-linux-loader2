@@ -54,8 +54,10 @@ void load_kernel(const char *filename) {
     settings.kernel.size = fread(settings.kernel.addr, 1, kernel_size, f);
     settings.kernel_loaded = !!(settings.kernel.size);
 
-    if (settings.kernel.size != kernel_size) printl("Warning: read less data from file than expected" NEWLINE);
+    if (settings.kernel.size != kernel_size)
+        printl("Warning: read less data from file than expected" NEWLINE);
 
+    fclose(f);
     printl("Kernel successfully loaded" NEWLINE);
     return;
 }
@@ -101,6 +103,8 @@ void load_ramdisk(const char *filename) {
 
     if (fread(settings.ramdisk.addr, 1, ramdisk_size, f) != ramdisk_size)
         printl("Warning: read less data from file than expected" NEWLINE);
+
+    fclose(f);
 
     settings.ramdisk_loaded = !!(settings.ramdisk.size);
 
