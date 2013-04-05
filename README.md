@@ -23,6 +23,7 @@ Valid commands are:
 
  * ```kernel <filename>```: Loads a kernel image into memory
  * ```initrd <filename>```: Loads a ramdisk into memory
+ * ```dtb <filename>```: Loads a DTB image into memory
  * ```dump```: Prints out the current internal state of the bootloader. Useful for debugging.
  * ```free```: Prints out the total amount of memory provided to the bootloader by the Nspire OS and amounts used by the kernel and ramdisks.
  * ```cmdline [str]```: Get/set the kernel command line parameters.
