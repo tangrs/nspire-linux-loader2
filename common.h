@@ -30,9 +30,9 @@ struct params {
     } kernel;
 
     struct {
-        void* addr;         /* Where the ramdisk is loaded (address should be in range of mem_block) */
+        void* addr;         /* Where the initrd is loaded (address should be in range of mem_block) */
         size_t size;
-    } ramdisk;
+    } initrd;
 
     struct {
         void* start;        /* A separate section of memory for writing ATAG and DTBs */
@@ -40,7 +40,7 @@ struct params {
     } boot_param;
 
     struct {
-        void* start;        /* Memory block for kernel and ramdisk */
+        void* start;        /* Memory block for kernel and initrd */
         size_t size;
     } mem_block;
 
@@ -55,9 +55,9 @@ struct params {
 
     unsigned serialnr[2];
     unsigned rev;
-    unsigned kernel_ramdisk_size;
+    unsigned ramdisk_size;
 
-    unsigned ramdisk_loaded:1;
+    unsigned initrd_loaded:1;
     unsigned kernel_loaded:1;
     unsigned dtb_loaded:1;
 };

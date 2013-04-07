@@ -62,53 +62,53 @@ void load_kernel(const char *filename) {
     return;
 }
 
-void load_ramdisk(const char *filename) {
+void load_initrd(const char *filename) {
     FILE* f;
-    size_t ramdisk_size = file_size(filename);
-    size_t size_free_memory = mem_block_size_free() - settings.ramdisk.size;
-    void* ramdisk_laddr = ((char*)settings.mem_block.start + settings.mem_block.size - ramdisk_size);
-    ramdisk_laddr = ROUND_PAGE_BOUND(ramdisk_laddr);
+    size_t initrd_size = file_size(filename);
+    size_t size_free_memory = mem_block_size_free() - settings.initrd.size;
+    void* initrd_laddr = ((char*)settings.mem_block.start + settings.mem_block.size - initrd_size);
+    initrd_laddr = ROUND_PAGE_BOUND(initrd_laddr);
     size_t needed_size = ((char*)settings.mem_block.start + settings.mem_block.size)
-                        - (char*)ramdisk_laddr;
+                        - (char*)initrd_laddr;
 
-    if (!strlen(filename) && settings.ramdisk_loaded) {
-        settings.ramdisk_loaded = 0;
-        settings.ramdisk.addr = NULL;
-        settings.ramdisk.size = 0;
-        printl("Unloaded ramdisk" NEWLINE);
+    if (!strlen(filename) && settings.initrd_loaded) {
+        settings.initrd_loaded = 0;
+        settings.initrd.addr = NULL;
+        settings.initrd.size = 0;
+        printl("Unloaded initrd" NEWLINE);
         return;
     }
 
-    if (!ramdisk_size) {
-        printl("Ramdisk doesn't exist or empty" NEWLINE);
+    if (!initrd_size) {
+        printl("Initrd doesn't exist or empty" NEWLINE);
         return;
     }
 
     if (needed_size > size_free_memory) {
-        printl( "Ramdisk too large!" NEWLINE
-                "Tried to load ramdisk needing %u bytes into %u bytes of free space" NEWLINE
-                "Original ramdisk size was %u bytes" NEWLINE,
-                needed_size, size_free_memory, ramdisk_size);
+        printl( "Initrd too large!" NEWLINE
+                "Tried to load initrd needing %u bytes into %u bytes of free space" NEWLINE
+                "Original initrd size was %u bytes" NEWLINE,
+                needed_size, size_free_memory, initrd_size);
         return;
     }
 
     f = fopen(filename, "rb");
     if (!f) {
-        printl("Failed to open ramdisk image %s" NEWLINE, filename);
+        printl("Failed to open initrd image %s" NEWLINE, filename);
         return;
     }
 
-    settings.ramdisk.addr = ramdisk_laddr;
-    settings.ramdisk.size = needed_size;
+    settings.initrd.addr = initrd_laddr;
+    settings.initrd.size = needed_size;
 
-    if (fread(settings.ramdisk.addr, 1, ramdisk_size, f) != ramdisk_size)
+    if (fread(settings.initrd.addr, 1, initrd_size, f) != initrd_size)
         printl("Warning: read less data from file than expected" NEWLINE);
 
     fclose(f);
 
-    settings.ramdisk_loaded = !!(settings.ramdisk.size);
+    settings.initrd_loaded = !!(settings.initrd.size);
 
-    printl("Ramdisk successfully loaded" NEWLINE);
+    printl("Initrd successfully loaded" NEWLINE);
     return;
 }
 

@@ -135,10 +135,10 @@ int atag_build() {
         ATAG(ATAG_MEM, settings.phys.size, settings.phys.start);
     if (strlen(settings.kernel_cmdline))
         ATAG(ATAG_CMDLINE, settings.kernel_cmdline);
-    if (settings.ramdisk_loaded)
-        ATAG(ATAG_INITRD2, settings.ramdisk.addr, settings.ramdisk.size);
-    if (settings.kernel_ramdisk_size)
-        ATAG(ATAG_RAMDISK, 0, settings.kernel_ramdisk_size, 0);
+    if (settings.initrd_loaded)
+        ATAG(ATAG_INITRD2, settings.initrd.addr, settings.initrd.size);
+    if (settings.ramdisk_size)
+        ATAG(ATAG_RAMDISK, 0, settings.ramdisk_size, 0);
 
     ATAG(ATAG_SERIAL, settings.serialnr[0], settings.serialnr[1]);
     ATAG(ATAG_REVISION, settings.rev);

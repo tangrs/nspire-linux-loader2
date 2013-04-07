@@ -20,7 +20,7 @@
 #define LOAD_H
 
 void load_kernel(const char *filename);
-void load_ramdisk(const char *filename);
+void load_initrd(const char *filename);
 void load_dtb(const char *filename);
 
 #endif

@@ -24,7 +24,7 @@
 
 #define MAX_BOOT_PARAM_SIZE (0x4000-0x100)
 
-#define mem_block_size_free() (settings.mem_block.size - settings.kernel.size - settings.ramdisk.size)
+#define mem_block_size_free() (settings.mem_block.size - settings.kernel.size - settings.initrd.size)
 
 
 void alloc_memory();

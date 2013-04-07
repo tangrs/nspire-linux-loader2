@@ -39,7 +39,7 @@ void kernel_boot(char * ignored __attribute__((unused))) {
         return;
     }
 
-    /* Kernels and ramdisks should already be loaded to their correct places */
+    /* Kernels and initrds should already be loaded to their correct places */
     /* Build atag next */
     if (!settings.dtb_loaded) {
        if (atag_build()) return;

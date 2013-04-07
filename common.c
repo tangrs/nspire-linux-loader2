@@ -55,9 +55,9 @@ void setget_phys(char * arg) {
 void setget_rdisksize(char * arg) {
     unsigned num;
     if ( (num = strtoul(arg, NULL, 16)) ) {
-        settings.kernel_ramdisk_size = num;
+        settings.ramdisk_size = num;
     }
-    printl("Kernel RAMDISK size set to %uK" NEWLINE, settings.kernel_ramdisk_size);
+    printl("Kernel RAMDISK size set to %uK" NEWLINE, settings.ramdisk_size);
 }
 
 void peek(char * arg) {
@@ -105,9 +105,9 @@ void dump_settings(char * ignored __attribute__((unused))) {
         DUMP_LEVEL1(settings.kernel, size);
     FOOTER_LEVEL0();
 
-    HEADER_LEVEL0(ramdisk);
-        DUMP_LEVEL1(settings.ramdisk, addr);
-        DUMP_LEVEL1(settings.ramdisk, size);
+    HEADER_LEVEL0(initrd);
+        DUMP_LEVEL1(settings.initrd, addr);
+        DUMP_LEVEL1(settings.initrd, size);
     FOOTER_LEVEL0();
 
     HEADER_LEVEL0(atag);
@@ -127,8 +127,8 @@ void dump_settings(char * ignored __attribute__((unused))) {
 
     DUMP_LEVEL0(settings, machine_id);
     DUMP_LEVEL0(settings, rev);
-    DUMP_LEVEL0(settings, kernel_ramdisk_size);
-    DUMP_LEVEL0(settings, ramdisk_loaded);
+    DUMP_LEVEL0(settings, ramdisk_size);
+    DUMP_LEVEL0(settings, initrd_loaded);
     DUMP_LEVEL0(settings, kernel_loaded);
     DUMP_LEVEL0(settings, dtb_loaded);
 

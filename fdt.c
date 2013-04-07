@@ -18,7 +18,7 @@ int update_fdt()
 {
     static void* fdt = 0;
 
-    if(!fdt)  
+    if(!fdt)
         fdt = malloc(FDT_SIZE_MAX + 7);
 
     if(!fdt) {
@@ -47,10 +47,10 @@ int update_fdt()
     }
 
     //UNTESTED (but doesn't hurt)
-    if(settings.ramdisk_loaded) {
-        unsigned ramdisk_end = settings.ramdisk.addr + settings.kernel_ramdisk_size;
-        if(fdt_setprop_cell(fdt, chosen, "linux,initrd-start", (unsigned)settings.ramdisk.addr) < 0
-        || fdt_setprop_cell(fdt, chosen, "linux,initrd-end", ramdisk_end) < 0) {
+    if(settings.initrd_loaded) {
+        unsigned initrd_end = settings.initrd.addr + settings.initrd.size;
+        if(fdt_setprop_cell(fdt, chosen, "linux,initrd-start", (unsigned)settings.initrd.addr) < 0
+        || fdt_setprop_cell(fdt, chosen, "linux,initrd-end", initrd_end) < 0) {
             printl("Failed to set ramdisk location!" NEWLINE);
             return 1;
         }

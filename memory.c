@@ -72,8 +72,8 @@ void show_mem(char *ignored __attribute__((unused))) {
         HUMAN(settings.mem_block.size);
         printl("" NEWLINE);
 
-        printl("Ramdisk: ");
-        HUMAN(settings.ramdisk.size);
+        printl("Initrd: ");
+        HUMAN(settings.initrd.size);
         printl("/");
         HUMAN(settings.mem_block.size);
         printl("" NEWLINE);
@@ -94,11 +94,11 @@ void free_memory() {
     settings.kernel.size = 0;
     settings.kernel.addr = 0;
 
-    settings.ramdisk.size = 0;
-    settings.ramdisk.addr = 0;
+    settings.initrd.size = 0;
+    settings.initrd.addr = 0;
 
     settings.kernel_loaded = 0;
-    settings.ramdisk_loaded = 0;
+    settings.initrd_loaded = 0;
 }
 
 void alloc_memory() {
@@ -113,6 +113,6 @@ void alloc_memory() {
 
     printl( "Allocated memory:" NEWLINE
             "   DTB/ATAGs:             %u bytes" NEWLINE
-            "   Kernel and ramdisk:    %u bytes" NEWLINE,
+            "   Kernel and initrd:     %u bytes" NEWLINE,
             settings.boot_param.size, settings.mem_block.size);
 }
