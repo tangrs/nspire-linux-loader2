@@ -40,7 +40,13 @@ static void* max_malloc(size_t *size) {
         curr_size = new_size;
     }
 
-    *size = curr_size;
+    free(ptr);
+
+    /* Reserve some space for FDT */
+    curr_size -= 64 * 1024; /* 64KB ought to be enough */
+    ptr = malloc(curr_size);
+
+    *size = !!ptr ? curr_size : 0;
     return ptr;
 }
 
