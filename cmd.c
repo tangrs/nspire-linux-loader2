@@ -65,6 +65,7 @@ int cmd_args(char* args, unsigned max_n, ...) {
 */
 #define DEFINE_COMMAND(s, f)   else if (!strncmp(#s, cmd, sizeof(#s)-1)) (cmd[sizeof(#s)-1] ? f(cmd+sizeof(#s)) : f(""))
 int process_cmd(char * cmd) {
+    if (*cmd == '#') return 0;
     if (*cmd == '\0') return 0;
     else if (!strcmp("exit", cmd)) return 1;
     else if (!strcmp("q", cmd)) return 1;

@@ -35,7 +35,7 @@ Valid commands are:
  * ```peek <addr>```: Read a word from an arbitrary location in the memory address space.
  * ```boot```: Boot kernel.
 
-The bootloader is also scriptable. Create a text file containing a list of commands to be executed and change the extension to ```.ll2.tns```, and add the following line to your ```/documents/ndless/ndless.cfg.tns``` file.
+The bootloader is also scriptable. Create a text file containing a list of commands to be executed and change the extension to ```.ll2.tns```, and add the following line to your ```/documents/ndless/ndless.cfg.tns``` file. Any line starting with ```#``` will be considered a comment and ignored by the bootloader.
 
     ext.ll2=linuxloader2
 
