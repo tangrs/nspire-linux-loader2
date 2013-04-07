@@ -112,7 +112,7 @@ void alloc_memory() {
     settings.mem_block.start = max_malloc(&settings.mem_block.size);
 
     printl( "Allocated memory:" NEWLINE
-            "   ATAGs:                 %u bytes" NEWLINE
+            "   DTB/ATAGs:             %u bytes" NEWLINE
             "   Kernel and ramdisk:    %u bytes" NEWLINE,
             settings.boot_param.size, settings.mem_block.size);
 }
