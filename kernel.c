@@ -17,10 +17,12 @@
 */
 
 #include <os.h>
+#include <libfdt.h>
 
 #include "common.h"
 #include "macros.h"
 #include "atag.h"
+#include "fdt.h"
 
 typedef void kentry(int, int, void*);
 
@@ -42,12 +44,16 @@ void kernel_boot(char * ignored __attribute__((unused))) {
     if (!settings.dtb_loaded) {
        if (atag_build()) return;
     }
+    /* Set initrd location, size and kernel cmdline in DTB using libfdt */
+    else {
+        if(update_fdt()) return;
+    }
 
     clear_cache();
     /* Disable D-Cache and MMU */
     asm volatile("mrc p15, 0, r0, c1, c0, 0 \n"
                  "bic r0, r0, #0x5 \n"
-                 "mcr p15, 0, r0, c1, c0,0 \n"
+                 "mcr p15, 0, r0, c1, c0, 0 \n"
                  : : : "r0" );
     /* Bye bye */
     entry(0, settings.machine_id, settings.boot_param.start);

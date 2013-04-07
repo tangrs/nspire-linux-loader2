@@ -1,6 +1,8 @@
+include libfdt/Makefile.libfdt
+
 GCC = nspire-gcc
 LD = nspire-ld
-GCCFLAGS = -Os -nostdlib -Wall -W -marm -Werror
+GCCFLAGS = -Os -nostdlib -Wall -W -marm -Ilibfdt/
 # Feel free to comment the following lines out if you're
 # not using git or you don't want the build date included
 BUILDFLAGS = -DBUILD_DATE="\"$(shell date --rfc-2822)\""
@@ -11,14 +13,14 @@ ifeq (${OBJCOPY},"")
 	OBJCOPY := arm-none-eabi-objcopy
 endif
 EXE = linuxloader2.tns
-OBJS = $(patsubst %.c,%.o,$(wildcard *.c))
+OBJS = $(patsubst %.c,%.o,$(wildcard *.c)) $(addprefix libfdt/, $(LIBFDT_OBJS))
 DISTDIR = .
 vpath %.tns $(DISTDIR)
 
 all: $(EXE)
 
 %.o: %.c
-	$(GCC) $(BUILDFLAGS) $(GCCFLAGS) -c $<
+	$(GCC) $(BUILDFLAGS) $(GCCFLAGS) -c $< -o $@
 
 $(EXE): $(OBJS)
 	$(LD) $^ -o $(@:.tns=.elf) $(LDFLAGS)
@@ -26,5 +28,5 @@ $(EXE): $(OBJS)
 	$(OBJCOPY) -O binary $(@:.tns=.elf) $(DISTDIR)/$@
 
 clean:
-	rm -f *.o *.elf
+	rm -f $(OBJS) *.elf
 	rm -f $(DISTDIR)/$(EXE)

@@ -23,6 +23,7 @@
 #include <os.h>
 #include "common.h"
 
+#define ALIGN(p, size) ((void*)(((unsigned)p + (size - 1)) & ~(size - 1)))
 #define ROUND_PAGE_BOUND(x) ((typeof(x))((unsigned)(x)&~(PAGE_SIZE-1)))
 #define ROUND_UP_PAGE_BOUND(x) ((typeof(x))((unsigned)(x+PAGE_SIZE-1)&~(PAGE_SIZE-1)))
 

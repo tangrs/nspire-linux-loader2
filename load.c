@@ -132,6 +132,11 @@ void load_dtb(const char *filename) {
 
     fclose(f);
 
+    if (fdt_check_header(settings.boot_param.start)) {
+        printl("Not a valid DTB!" NEWLINE);
+        return;
+    }
+
     settings.dtb_loaded = 1;
     settings.machine_id = DTB_MACH_ID;
 
