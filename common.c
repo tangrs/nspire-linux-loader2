@@ -61,24 +61,41 @@ void setget_rdisksize(char * arg) {
 }
 
 void peek(char * arg) {
+    char *endptr;
     unsigned addr;
-    if ( (addr = strtoul(arg, NULL, 16)) ) {
+
+    addr = strtoul(arg, &endptr, 16);
+
+    if ( endptr != arg ) {
         if (addr & 0b11) {
             printl("Warning: Address 0x%x is not word-aligned" NEWLINE, addr);
         } else {
             printl("*0x%x = 0x%x" NEWLINE, addr, *(volatile unsigned*)addr);
         }
+    } else {
+        printl("Invalid address `%s'" NEWLINE, arg);
     }
 }
 
 void poke(char *arg) {
     unsigned addr, value;
-    char *nextarg;
-    if ( (addr = strtoul(arg, &nextarg, 16)) && (value = strtoul(nextarg, NULL, 16)) ) {
+    char *nextarg, *endptr;
+
+    addr = strtoul(arg, &nextarg, 16);
+    if (nextarg == arg) {
+        goto end;
+    }
+    value = strtoul(nextarg, &endptr, 16);
+
+    if ( endptr != nextarg ) {
         if (!(addr & 0b11)) {
             *(volatile unsigned*)addr = value;
         }
+    } else {
+        if (*nextarg == ' ') nextarg++;
+        printl("Invalid value `%s'" NEWLINE, nextarg);
     }
+end:
     peek(arg);
 }
 
