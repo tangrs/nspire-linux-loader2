@@ -2,7 +2,7 @@ include libfdt/Makefile.libfdt
 
 GCC = nspire-gcc
 LD = nspire-ld
-GCCFLAGS = -Os -nostdlib -Wall -W -marm -Ilibfdt/
+GCCFLAGS = -mcpu=arm926ej-s -Os -nostdlib -Wall -W -marm -Ilibfdt/
 # Feel free to comment the following lines out if you're
 # not using git or you don't want the build date included
 BUILDFLAGS = -DBUILD_DATE="\"$(shell date --rfc-2822)\""

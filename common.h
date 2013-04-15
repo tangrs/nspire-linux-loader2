@@ -60,6 +60,7 @@ struct params {
     unsigned initrd_loaded:1;
     unsigned kernel_loaded:1;
     unsigned dtb_loaded:1;
+    unsigned break_on_entry:1;
 };
 
 extern struct params settings;
@@ -71,5 +72,7 @@ void setget_rdisksize(char * arg);
 
 void poke(char *arg);
 void peek(char *arg);
+
+void break_on_entry(char *arg);
 
 #endif

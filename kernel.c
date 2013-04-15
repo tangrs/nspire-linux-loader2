@@ -56,6 +56,10 @@ void kernel_boot(char * ignored __attribute__((unused))) {
                  "mcr p15, 0, r0, c1, c0, 0 \n"
                  : : : "r0" );
     /* Bye bye */
+    if (settings.break_on_entry) {
+        asm volatile("bkpt #0");
+    }
+
     entry(0, settings.machine_id, settings.boot_param.start);
     __builtin_unreachable();
 }

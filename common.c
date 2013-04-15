@@ -99,6 +99,10 @@ end:
     peek(arg);
 }
 
+void break_on_entry(char *arg) {
+    settings.break_on_entry = 1;
+}
+
 void dump_settings(char * ignored __attribute__((unused))) {
     HEADER_LEVEL0(kernel);
         DUMP_LEVEL1(settings.kernel, addr);
@@ -131,6 +135,7 @@ void dump_settings(char * ignored __attribute__((unused))) {
     DUMP_LEVEL0(settings, initrd_loaded);
     DUMP_LEVEL0(settings, kernel_loaded);
     DUMP_LEVEL0(settings, dtb_loaded);
+    DUMP_LEVEL0(settings, break_on_entry);
 
     printl("kernel_cmdline = \"%s\"" NEWLINE, settings.kernel_cmdline);
     printl("serialnr = 0x%x%x" NEWLINE, settings.serialnr[1], settings.serialnr[0]);

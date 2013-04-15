@@ -88,6 +88,7 @@ int process_cmd(char * cmd) {
     DEFINE_COMMAND(probemem, force_guess_memory);
     DEFINE_COMMAND(poke, poke);
     DEFINE_COMMAND(peek, peek);
+    DEFINE_COMMAND(enterbkpt, break_on_entry);
     /*
         End command list. Do not add any more after here
     */
