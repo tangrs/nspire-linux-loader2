@@ -23,6 +23,7 @@
 #include "memory.h"
 #include "cmd.h"
 #include "mach.h"
+#include "trap.h"
 
 struct params settings;
 
@@ -40,6 +41,7 @@ int main(int argc, char *argv[]) {
             NIO_COLOR_WHITE,NIO_COLOR_BLACK,
             TRUE);
     nio_set_default(&csl);
+    trap_install();
 
     printl("Linux in-place bootloader v2" GIT_TEXT NEWLINE);
 #ifdef BUILD_DATE
@@ -91,6 +93,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    trap_remove();
     free_memory();
     nio_free(&csl);
     return 0;
