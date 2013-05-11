@@ -75,4 +75,6 @@ void peek(char *arg);
 
 void break_on_entry(char *arg);
 
+void *builtin_memcpy(void *dst, const void *src, size_t size);
+
 #endif

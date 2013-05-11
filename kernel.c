@@ -24,6 +24,9 @@
 #include "atag.h"
 #include "fdt.h"
 
+/* Where to relocate boot parameters? Defined as start of memory + 0x100 */
+#define BOOT_PARAM_RELADDR ((char*)(settings.phys.start) + 0x100)
+
 typedef void kentry(int, int, void*);
 
 void kernel_cmdline(char * cmdline) {
@@ -49,6 +52,8 @@ void kernel_boot(char * ignored __attribute__((unused))) {
         if(update_fdt()) return;
     }
 
+    builtin_memcpy(BOOT_PARAM_RELADDR, settings.boot_param.start, settings.boot_param.size);
+
     clear_cache();
     /* Disable D-Cache and MMU */
     asm volatile("mrc p15, 0, r0, c1, c0, 0 \n"
@@ -60,6 +65,6 @@ void kernel_boot(char * ignored __attribute__((unused))) {
         asm volatile("bkpt #0");
     }
 
-    entry(0, settings.machine_id, settings.boot_param.start);
+    entry(0, settings.machine_id, BOOT_PARAM_RELADDR);
     __builtin_unreachable();
 }

@@ -141,3 +141,14 @@ void dump_settings(char * ignored __attribute__((unused))) {
     printl("serialnr = 0x%x%x" NEWLINE, settings.serialnr[1], settings.serialnr[0]);
 
 }
+
+/* Standalone memcpy for when we can't have external dependencies */
+void *builtin_memcpy(void *_dst, const void *_src, size_t size) {
+    const char *src = _src;
+    char *dst = _dst;
+
+    while (size--)
+        *dst++ = *src++;
+
+    return _dst;
+}
