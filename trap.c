@@ -44,7 +44,7 @@ void trap_enter(struct trap_regs *regs) {
             regs->reg[6], regs->reg[7], regs->reg[8]);
     printl("r9:  %08X r10: %08X r11: %08X" NEWLINE,
             regs->reg[9], regs->reg[10], regs->reg[11]);
-    printl("r12: %08X sp:  %08X lr:   %08X" NEWLINE,
+    printl("r12: %08X sp:  %08X lr:  %08X" NEWLINE,
             regs->reg[12], regs->reg[13], regs->reg[14]);
     printl("pc:    %08X" NEWLINE, regs->reg[15]);
     printl("cpsr:  %08X" NEWLINE, regs->psr);
