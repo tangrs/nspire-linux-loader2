@@ -17,6 +17,7 @@
 */
 
 #include <os.h>
+#include <libfdt.h>
 
 #include "macros.h"
 #include "memory.h"

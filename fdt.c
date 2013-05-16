@@ -48,7 +48,7 @@ int update_fdt()
 
     //UNTESTED (but doesn't hurt)
     if(settings.initrd_loaded) {
-        unsigned initrd_end = settings.initrd.addr + settings.initrd.size;
+        unsigned initrd_end = (unsigned)settings.initrd.addr + settings.initrd.size;
         if(fdt_setprop_cell(fdt, chosen, "linux,initrd-start", (unsigned)settings.initrd.addr) < 0
         || fdt_setprop_cell(fdt, chosen, "linux,initrd-end", initrd_end) < 0) {
             printl("Failed to set ramdisk location!" NEWLINE);

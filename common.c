@@ -99,7 +99,7 @@ end:
     peek(arg);
 }
 
-void break_on_entry(char *arg) {
+void break_on_entry(char *arg __attribute__((unused))) {
     settings.break_on_entry = 1;
 }
 
