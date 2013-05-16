@@ -34,5 +34,5 @@ $(EXE): $(OBJS)
 
 clean:
 	rm -f $(OBJS) *.elf
-	rm -f $(DISTDIR)/$(EXE)
+	rm -f $(EXE)
 
