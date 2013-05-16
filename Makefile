@@ -5,8 +5,8 @@ GCCFLAGS = -mcpu=arm926ej-s -Os -nostdlib -Wall -W -marm -Ilibfdt/
 
 # Feel free to comment the following lines out if you're
 # not using git or you don't want the build date included
-BUILDFLAGS = -DBUILD_DATE="\"$(shell date --rfc-2822)\""
-BUILDFLAGS+= -DGIT_COMMIT="\"$(shell git rev-parse --short HEAD)\""
+BUILDFLAGS := -DBUILD_DATE="\"$(shell date --rfc-2822)\""
+BUILDFLAGS += -DGIT_COMMIT="\"$(shell git rev-parse --short HEAD)\""
 
 LDFLAGS = -lnspireio
 OBJCOPY := "$(shell which arm-elf-objcopy 2>/dev/null)"
@@ -18,7 +18,6 @@ EXE = linuxloader2.tns
 OBJS  = $(patsubst %.c,%.o,$(wildcard *.c))
 OBJS += $(patsubst %.S,%.o,$(wildcard *.S))
 OBJS += $(addprefix libfdt/, $(LIBFDT_OBJS))
-DISTDIR = .
 
 vpath %.tns $(DISTDIR)
 
@@ -31,8 +30,7 @@ all: $(EXE)
 
 $(EXE): $(OBJS)
 	$(LD) $^ -o $(@:.tns=.elf) $(LDFLAGS)
-	mkdir -p $(DISTDIR)
-	$(OBJCOPY) -O binary $(@:.tns=.elf) $(DISTDIR)/$@
+	$(OBJCOPY) -O binary $(@:.tns=.elf) $@
 
 clean:
 	rm -f $(OBJS) *.elf
