@@ -24,6 +24,7 @@
 #include "macros.h"
 #include "mach.h"
 #include "memory.h"
+#include "cmd.h"
 
 
 static int next_space_null(const char* str) {
@@ -59,6 +60,24 @@ int cmd_args(char* args, unsigned max_n, ...) {
     return i;
 }
 
+int load_script(const char* filename) {
+    FILE *script = fopen(filename, "r");
+    if (!script) {
+        printl("Warning: Cannot open script file %s" NEWLINE, filename);
+    }else{
+        while (!feof(script)) {
+            char cmd[128];
+            if (!fgets(cmd, sizeof(cmd), script)) break;
+            if (cmd[strlen(cmd)-1] == '\n') cmd[strlen(cmd)-1] = '\0';
+            printl("%s" NEWLINE, cmd);
+            process_cmd(cmd);
+        }
+        fclose(script);
+    }
+
+    return 0;
+}
+
 /*
     Returns 1 if program should gracefully exit
     Returns 0 if further commands can be executed
@@ -78,6 +97,7 @@ int process_cmd(char * cmd) {
     DEFINE_COMMAND(kernel, load_kernel);
     DEFINE_COMMAND(initrd, load_initrd);
     DEFINE_COMMAND(dtb, load_dtb);
+    DEFINE_COMMAND(script, load_script);
     DEFINE_COMMAND(dump, dump_settings);
     DEFINE_COMMAND(free, show_mem);
     DEFINE_COMMAND(mach, setget_mach);

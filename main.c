@@ -69,20 +69,7 @@ int main(int argc, char *argv[]) {
                 settings.rev?"CAS":"Non-CAS");
 
     if (argc > 1) {
-        FILE *script = fopen(argv[1], "r");
-        if (!script) {
-            printl("Warning: Cannot open script file %s" NEWLINE, argv[1]);
-        }else{
-            while (!feof(script)) {
-                char cmd[128];
-                if (!fgets(cmd, 128, script)) break;
-                if (cmd[strlen(cmd)-1] == '\n') cmd[strlen(cmd)-1] = '\0';
-                printl("%s" NEWLINE, cmd);
-                process_cmd(cmd);
-
-            }
-            fclose(script);
-        }
+        load_script(argv[1]);
     }
 
     while (1) {
