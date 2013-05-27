@@ -19,9 +19,22 @@
 #define COMMON_H
 
 #include <stddef.h>
+#include <nspireio.h>
 
 #define PAGE_SIZE 0x1000
 #define DTB_MACH_ID 3503
+
+#define ALIGN(p, size) ((void*)(((unsigned)p + (size - 1)) & ~(size - 1)))
+#define ROUND_PAGE_BOUND(x) ((typeof(x))((unsigned)(x)&~(PAGE_SIZE-1)))
+#define ROUND_UP_PAGE_BOUND(x) ((typeof(x))((unsigned)(x+PAGE_SIZE-1)&~(PAGE_SIZE-1)))
+
+#define printl(...) do { \
+        nio_printf(__VA_ARGS__); \
+        uart_printf(__VA_ARGS__); \
+    } while(0)
+
+
+#define NEWLINE "\r\n"
 
 struct params {
     struct {

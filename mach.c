@@ -19,7 +19,6 @@
 #include <stdint.h>
 
 #include "common.h"
-#include "macros.h"
 
 /*
     A conservative approximate of the amount of memory

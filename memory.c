@@ -19,7 +19,6 @@
 #include <os.h>
 #include "common.h"
 #include "memory.h"
-#include "macros.h"
 
 /* Amount of memory to try extending each time in max_malloc */
 #define INC_BLOCK_SIZE 0x10000

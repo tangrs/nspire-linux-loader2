@@ -20,7 +20,6 @@
 #include <libfdt.h>
 
 #include "common.h"
-#include "macros.h"
 #include "atag.h"
 #include "fdt.h"
 

@@ -18,7 +18,6 @@
 
 #include <os.h>
 #include "common.h"
-#include "macros.h"
 
 
 static volatile unsigned * const vectaddr_begin = (volatile unsigned*)0x00000020;

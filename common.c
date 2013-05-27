@@ -17,7 +17,6 @@
 */
 
 #include <os.h>
-#include "macros.h"
 #include "common.h"
 
 #define DUMP(n, s, x) printl( n #x " = 0x%x" NEWLINE, (unsigned)(s.x) );

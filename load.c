@@ -19,7 +19,7 @@
 #include <os.h>
 #include <libfdt.h>
 
-#include "macros.h"
+#include "common.h"
 #include "memory.h"
 
 static size_t file_size(const char *filename) {

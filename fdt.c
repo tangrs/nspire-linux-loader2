@@ -3,7 +3,6 @@
 
 #include "fdt.h"
 #include "common.h"
-#include "macros.h"
 #include "memory.h"
 
 static int _fdt_make_node(void * fdt, int parentoffset, const char * name) {

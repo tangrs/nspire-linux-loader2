@@ -21,7 +21,6 @@
 #include "kernel.h"
 #include "common.h"
 #include "load.h"
-#include "macros.h"
 #include "mach.h"
 #include "memory.h"
 #include "cmd.h"

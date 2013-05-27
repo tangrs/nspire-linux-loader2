@@ -19,7 +19,6 @@
 #include <os.h>
 #include <nspireio.h>
 #include "common.h"
-#include "macros.h"
 #include "memory.h"
 #include "cmd.h"
 #include "mach.h"

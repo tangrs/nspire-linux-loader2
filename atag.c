@@ -22,7 +22,6 @@
 #include "atag_tags.h"
 #include "atag.h"
 #include "common.h"
-#include "macros.h"
 
 static void* atag_add(void *head, int tagid, ...) {
     va_list ap;
