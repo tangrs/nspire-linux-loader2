@@ -35,8 +35,8 @@ int update_fdt()
 
     int chosen = _fdt_make_node(fdt, 0, "chosen");
     if(chosen < 0) {
-	printl("Failed to create 'chosen' node!" NEWLINE);
-	return 1;
+        printl("Failed to create 'chosen' node!" NEWLINE);
+        return 1;
     }
 
     /* If not given assume defaults from DT */
