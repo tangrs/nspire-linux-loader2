@@ -26,7 +26,7 @@
 #include "cmd.h"
 
 
-static int next_space_null(const char* str) {
+static int next_space_null(const char *str) {
     int i = 0;
     while (*str != ' ' && *str != '\0') ((i++), (str++));
     return i;
@@ -35,7 +35,7 @@ static int next_space_null(const char* str) {
     Returns number of filled arguments.
     Var args are all of type char**
 */
-int cmd_args(char* args, unsigned max_n, ...) {
+int cmd_args(char *args, unsigned max_n, ...) {
     va_list ap;
     va_start(ap, max_n);
 
@@ -59,7 +59,7 @@ int cmd_args(char* args, unsigned max_n, ...) {
     return i;
 }
 
-int load_script(const char* filename) {
+int load_script(const char *filename) {
     FILE *script = fopen(filename, "r");
     if (!script) {
         printl("Warning: Cannot open script file %s" NEWLINE, filename);
@@ -82,7 +82,7 @@ int load_script(const char* filename) {
     Returns 0 if further commands can be executed
 */
 #define DEFINE_COMMAND(s, f)   else if (!strncmp(#s, cmd, sizeof(#s)-1)) (cmd[sizeof(#s)-1] ? f(cmd+sizeof(#s)) : f(""))
-int process_cmd(char * cmd) {
+int process_cmd(char *cmd) {
     if (*cmd == '#') return 0;
     if (*cmd == '\0') return 0;
     else if (!strcmp("exit", cmd)) return 1;

@@ -23,7 +23,7 @@
 #include "atag.h"
 #include "common.h"
 
-static void* atag_add(void *head, int tagid, ...) {
+static void *atag_add(void *head, int tagid, ...) {
     va_list ap;
     va_start(ap, tagid);
     char *cmdline = NULL;
@@ -108,7 +108,7 @@ static void* atag_add(void *head, int tagid, ...) {
     return (char*)head + tag_size;
 }
 
-static void* atag_begin(void *head) {
+static void *atag_begin(void *head) {
     return atag_add(head, ATAG_CORE);
 }
 

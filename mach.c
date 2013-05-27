@@ -42,7 +42,7 @@ static int guess_memory_size() {
     return 0;
 }
 
-void force_guess_memory(char* ignored __attribute__((unused))) {
+void force_guess_memory(char *ignored UNUSED) {
     if (guess_memory_size()) printl("Failed to guess memory parameters" NEWLINE);
 }
 

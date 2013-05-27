@@ -34,7 +34,7 @@
 #define FOOTER_LEVEL1() FOOTER("    ")
 #define FOOTER_LEVEL2() FOOTER("    ")
 
-void setget_mach(char * arg) {
+void setget_mach(char *arg) {
     int num;
     if ( (num = strtol(arg, NULL, 10)) ) {
         settings.machine_id = num;
@@ -42,7 +42,7 @@ void setget_mach(char * arg) {
     printl("Machine ID is set to %d" NEWLINE, settings.machine_id);
 }
 
-void setget_phys(char * arg) {
+void setget_phys(char *arg) {
     unsigned start, size;
     if ( (start = strtoul(arg, &arg, 16)) && (size = strtoul(arg, NULL, 16)) ) {
         settings.phys.start = (void*)start;
@@ -51,7 +51,7 @@ void setget_phys(char * arg) {
     printl("Physical memory range is 0x%p-0x%p" NEWLINE, settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 }
 
-void setget_rdisksize(char * arg) {
+void setget_rdisksize(char *arg) {
     unsigned num;
     if ( (num = strtoul(arg, NULL, 16)) ) {
         settings.ramdisk_size = num;
@@ -59,7 +59,7 @@ void setget_rdisksize(char * arg) {
     printl("Kernel RAMDISK size set to %uK" NEWLINE, settings.ramdisk_size);
 }
 
-void peek(char * arg) {
+void peek(char *arg) {
     char *endptr;
     unsigned addr;
 
@@ -98,11 +98,11 @@ end:
     peek(arg);
 }
 
-void break_on_entry(char *arg __attribute__((unused))) {
+void break_on_entry(char *arg UNUSED) {
     settings.break_on_entry = 1;
 }
 
-void dump_settings(char * ignored __attribute__((unused))) {
+void dump_settings(char *ignored UNUSED) {
     HEADER_LEVEL0(kernel);
         DUMP_LEVEL1(settings.kernel, addr);
         DUMP_LEVEL1(settings.kernel, size);

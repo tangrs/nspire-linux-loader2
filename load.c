@@ -31,7 +31,7 @@ static size_t file_size(const char *filename) {
 void load_kernel(const char *filename) {
     size_t kernel_size = file_size(filename);
     size_t size_free_memory = mem_block_size_free() - settings.kernel.size;
-    FILE* f;
+    FILE *f;
 
     if (!kernel_size) {
         printl("Kernel doesn't exist or empty" NEWLINE);
@@ -64,10 +64,10 @@ void load_kernel(const char *filename) {
 }
 
 void load_initrd(const char *filename) {
-    FILE* f;
+    FILE *f;
     size_t initrd_size = file_size(filename);
     size_t size_free_memory = mem_block_size_free() - settings.initrd.size;
-    void* initrd_laddr = ((char*)settings.mem_block.start + settings.mem_block.size - initrd_size);
+    void *initrd_laddr = ((char*)settings.mem_block.start + settings.mem_block.size - initrd_size);
     initrd_laddr = ROUND_PAGE_BOUND(initrd_laddr);
     size_t needed_size = ((char*)settings.mem_block.start + settings.mem_block.size)
                         - (char*)initrd_laddr;
@@ -114,7 +114,7 @@ void load_initrd(const char *filename) {
 }
 
 void load_dtb(const char *filename) {
-    FILE* f;
+    FILE *f;
     size_t dtb_size = file_size(filename);
 
     if (dtb_size > settings.boot_param.size) {

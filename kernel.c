@@ -28,13 +28,13 @@
 
 typedef void kentry(int, int, void*);
 
-void kernel_cmdline(char * cmdline) {
+void kernel_cmdline(char *cmdline) {
     if (strlen(cmdline)) strncpy(settings.kernel_cmdline, cmdline, sizeof(settings.kernel_cmdline)-1);
     printl("Kernel command line: \"%s\"" NEWLINE, settings.kernel_cmdline);
 }
 
-void kernel_boot(char * ignored __attribute__((unused))) {
-    kentry* entry = (kentry*)settings.kernel.addr;
+void kernel_boot(char *ignored UNUSED) {
+    kentry *entry = (kentry*)settings.kernel.addr;
 
     if (!settings.kernel_loaded) {
         printl("Kernel not loaded." NEWLINE);

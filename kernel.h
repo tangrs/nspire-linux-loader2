@@ -19,7 +19,7 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-void kernel_boot(char*);
-void kernel_cmdline(char*);
+void kernel_boot(char *);
+void kernel_cmdline(char *);
 
 #endif

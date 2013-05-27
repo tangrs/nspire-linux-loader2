@@ -27,8 +27,8 @@
     Try to alloc the biggest contigious section of memory possible.
     Will always be a multiple of INC_BLOCK_SIZE
 */
-static void* max_malloc(size_t *size) {
-    void * ptr = NULL;
+static void *max_malloc(size_t *size) {
+    void *ptr = NULL;
     size_t curr_size = 0;
 
     while(1) {
@@ -58,7 +58,7 @@ static void* max_malloc(size_t *size) {
         printl("%u%s", number, unit); \
     } while (0)
 
-void show_mem(char *ignored __attribute__((unused))) {
+void show_mem(char *ignored UNUSED) {
         printl("Total free: ");
         HUMAN(mem_block_size_free());
         printl("/");

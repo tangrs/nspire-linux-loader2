@@ -19,8 +19,8 @@
 #ifndef CMD_H
 #define CMD_H
 
-int load_script(const char* filename);
-int process_cmd(char * cmd);
-int cmd_args(char* args, unsigned max_n, ...);
+int load_script(const char *filename);
+int process_cmd(char *cmd);
+int cmd_args(char *args, unsigned max_n, ...);
 
 #endif

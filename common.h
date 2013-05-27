@@ -33,8 +33,8 @@
         uart_printf(__VA_ARGS__); \
     } while(0)
 
-
 #define NEWLINE "\r\n"
+#define UNUSED  __attribute__((unused))
 
 typedef volatile uint32_t *io32_t;
 typedef volatile uint16_t *io16_t;
@@ -42,27 +42,27 @@ typedef volatile uint8_t *io8_t;
 
 struct params {
     struct {
-        void* addr;         /* Where the kernel is loaded (address should be in range of mem_block) */
+        void *addr;         /* Where the kernel is loaded (address should be in range of mem_block) */
         size_t size;
     } kernel;
 
     struct {
-        void* addr;         /* Where the initrd is loaded (address should be in range of mem_block) */
+        void *addr;         /* Where the initrd is loaded (address should be in range of mem_block) */
         size_t size;
     } initrd;
 
     struct {
-        void* start;        /* A separate section of memory for writing ATAG and DTBs */
+        void *start;        /* A separate section of memory for writing ATAG and DTBs */
         size_t size;
     } boot_param;
 
     struct {
-        void* start;        /* Memory block for kernel and initrd */
+        void *start;        /* Memory block for kernel and initrd */
         size_t size;
     } mem_block;
 
     struct {
-        void* start;
+        void *start;
         size_t size;
     } phys;
 
@@ -82,10 +82,10 @@ struct params {
 
 extern struct params settings;
 
-void dump_settings(char*);
-void setget_mach(char * arg);
-void setget_phys(char * arg);
-void setget_rdisksize(char * arg);
+void dump_settings(char *);
+void setget_mach(char *arg);
+void setget_phys(char *arg);
+void setget_rdisksize(char *arg);
 
 void poke(char *arg);
 void peek(char *arg);

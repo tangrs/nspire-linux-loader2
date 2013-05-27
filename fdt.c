@@ -5,7 +5,7 @@
 #include "common.h"
 #include "memory.h"
 
-static int _fdt_make_node(void * fdt, int parentoffset, const char * name) {
+static int _fdt_make_node(void *fdt, int parentoffset, const char *name) {
     int e = fdt_subnode_offset(fdt, parentoffset, name);
     if(e != FDT_ERR_NOTFOUND)
         return e;
@@ -13,9 +13,8 @@ static int _fdt_make_node(void * fdt, int parentoffset, const char * name) {
     return fdt_add_subnode(fdt, parentoffset, name);
 }
 
-int update_fdt()
-{
-    static void* fdt = 0;
+int update_fdt() {
+    static void *fdt = 0;
 
     if(!fdt)
         fdt = malloc(FDT_SIZE_MAX + 7);
