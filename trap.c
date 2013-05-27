@@ -20,7 +20,7 @@
 #include "common.h"
 
 
-static volatile unsigned * const vectaddr_begin = (volatile unsigned*)0x00000020;
+static const io32_t vectaddr_begin = (io32_t)0x00000020;
 static unsigned vectaddr_orig[3];
 
 void trap_abt(void);
@@ -89,7 +89,7 @@ void trap_enter(struct trap_regs *regs) {
     wait_key_pressed();
 
     while (1) {
-        *(volatile unsigned*)0x900A0008 = 2;
+        *(io32_t)0x900A0008 = 2;
     }
 }
 

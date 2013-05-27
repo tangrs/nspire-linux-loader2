@@ -69,7 +69,7 @@ void peek(char * arg) {
         if (addr & 0b11) {
             printl("Warning: Address 0x%x is not word-aligned" NEWLINE, addr);
         } else {
-            printl("*0x%x = 0x%x" NEWLINE, addr, *(volatile unsigned*)addr);
+            printl("*0x%x = 0x%x" NEWLINE, addr, *(io32_t)addr);
         }
     } else {
         printl("Invalid address `%s'" NEWLINE, arg);
@@ -88,7 +88,7 @@ void poke(char *arg) {
 
     if ( endptr != nextarg ) {
         if (!(addr & 0b11)) {
-            *(volatile unsigned*)addr = value;
+            *(io32_t)addr = value;
         }
     } else {
         if (*nextarg == ' ') nextarg++;

@@ -36,6 +36,10 @@
 
 #define NEWLINE "\r\n"
 
+typedef volatile uint32_t *io32_t;
+typedef volatile uint16_t *io16_t;
+typedef volatile uint8_t *io8_t;
+
 struct params {
     struct {
         void* addr;         /* Where the kernel is loaded (address should be in range of mem_block) */
