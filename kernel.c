@@ -51,6 +51,10 @@ void kernel_boot(char * ignored __attribute__((unused))) {
         if(update_fdt()) return;
     }
 
+    /* Enable bus access to all peripherals before booting */
+    *(io32_t)0x900B0018 = 0;
+    *(io32_t)0x900B0020 = 0;
+
     builtin_memcpy(BOOT_PARAM_RELADDR, settings.boot_param.start, settings.boot_param.size);
 
     clear_cache();
