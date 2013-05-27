@@ -74,15 +74,15 @@ void trap_enter(struct trap_regs *regs) {
     }
     printl("mode:  %s" NEWLINE, mode);
     printl("bits:  %c %c %c %c %c %c %c %c %c" NEWLINE,
-        (regs->psr & (1<<31)) ? 'N' : ' ',
-        (regs->psr & (1<<30)) ? 'Z' : ' ',
-        (regs->psr & (1<<29)) ? 'C' : ' ',
-        (regs->psr & (1<<28)) ? 'V' : ' ',
-        (regs->psr & (1<<27)) ? 'Q' : ' ',
-        (regs->psr & (1<<24)) ? 'J' : ' ',
-        (regs->psr & (1<< 7)) ? 'I' : ' ',
-        (regs->psr & (1<< 6)) ? 'F' : ' ',
-        (regs->psr & (1<< 5)) ? 'T' : ' ');
+        (regs->psr & (1<<31)) ? 'N' : '-',
+        (regs->psr & (1<<30)) ? 'Z' : '-',
+        (regs->psr & (1<<29)) ? 'C' : '-',
+        (regs->psr & (1<<28)) ? 'V' : '-',
+        (regs->psr & (1<<27)) ? 'Q' : '-',
+        (regs->psr & (1<<24)) ? 'J' : '-',
+        (regs->psr & (1<< 7)) ? 'I' : '-',
+        (regs->psr & (1<< 6)) ? 'F' : '-',
+        (regs->psr & (1<< 5)) ? 'T' : '-');
 
     printl("Press a key to reset" NEWLINE);
 
