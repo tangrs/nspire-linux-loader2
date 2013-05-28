@@ -25,40 +25,6 @@
 #include "memory.h"
 #include "cmd.h"
 
-
-static int next_space_null(const char *str) {
-    int i = 0;
-    while (*str != ' ' && *str != '\0') ((i++), (str++));
-    return i;
-}
-/*
-    Returns number of filled arguments.
-    Var args are all of type char**
-*/
-int cmd_args(char *args, unsigned max_n, ...) {
-    va_list ap;
-    va_start(ap, max_n);
-
-    char *ptr = args;
-    unsigned i;
-
-    for (i=0; i<max_n; i++) {
-        char **fill;
-
-        args += next_space_null(args);
-        if (!*args) break;
-        *args = '\0';
-
-        fill = va_arg(ap,char**);
-        *fill = ptr;
-        args++;
-        ptr = args;
-    }
-
-    va_end(ap);
-    return i;
-}
-
 int load_script(const char *filename) {
     FILE *script = fopen(filename, "r");
     if (!script) {
