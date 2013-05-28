@@ -35,16 +35,11 @@ void trap_enter(struct trap_regs *regs) {
     const char *mode;
 
     printl("Exception trapped!" NEWLINE);
-    printl("r0:  %08X r1:  %08X r2:  %08X" NEWLINE,
-            regs->reg[0], regs->reg[1], regs->reg[2]);
-    printl("r3:  %08X r4:  %08X r5:  %08X" NEWLINE,
-            regs->reg[3], regs->reg[4], regs->reg[5]);
-    printl("r6:  %08X r7:  %08X r8:  %08X" NEWLINE,
-            regs->reg[6], regs->reg[7], regs->reg[8]);
-    printl("r9:  %08X r10: %08X r11: %08X" NEWLINE,
-            regs->reg[9], regs->reg[10], regs->reg[11]);
-    printl("r12: %08X sp:  %08X lr:  %08X" NEWLINE,
-            regs->reg[12], regs->reg[13], regs->reg[14]);
+    printl("r0:  %08X r1:  %08X r2:  %08X" NEWLINE, regs->reg[0], regs->reg[1], regs->reg[2]);
+    printl("r3:  %08X r4:  %08X r5:  %08X" NEWLINE, regs->reg[3], regs->reg[4], regs->reg[5]);
+    printl("r6:  %08X r7:  %08X r8:  %08X" NEWLINE, regs->reg[6], regs->reg[7], regs->reg[8]);
+    printl("r9:  %08X r10: %08X r11: %08X" NEWLINE, regs->reg[9], regs->reg[10], regs->reg[11]);
+    printl("r12: %08X sp:  %08X lr:  %08X" NEWLINE, regs->reg[12], regs->reg[13], regs->reg[14]);
     printl("pc:    %08X" NEWLINE, regs->reg[15]);
     printl("cpsr:  %08X" NEWLINE, regs->psr);
     switch (regs->psr & 0x1F) {
