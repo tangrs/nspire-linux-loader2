@@ -16,17 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.global trap_data_abt
-trap_data_abt:
-    sub lr, lr, #8
-    b _trap_enter
-
 .global trap_abt
-trap_abt:
-    sub lr, lr, #4
-    b _trap_enter
+.global trap_data_abt
 
-_trap_enter:
+trap_data_abt:   sub lr, lr, #4
+trap_abt:        sub lr, lr, #4
+
     str lr, saved_regs + (15<<2)
     adr lr, saved_regs
     stm lr, {r0-r12}
