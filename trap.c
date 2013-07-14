@@ -79,13 +79,21 @@ void trap_enter(struct trap_regs *regs) {
         (regs->psr & (1<< 6)) ? 'F' : '-',
         (regs->psr & (1<< 5)) ? 'T' : '-');
 
-    printl("Press a key to reset" NEWLINE);
+    printl("Press a key to reset or ESC to continue" NEWLINE);
 
     wait_key_pressed();
+
+    if (isKeyPressed(KEY_NSPIRE_ESC)) {
+        /* Skip offending instruction on return */
+        regs->reg[15] += 4;
+        return;
+    }
 
     while (1) {
         *(io32_t)0x900A0008 = 2;
     }
+
+    __builtin_unreachable();
 }
 
 void trap_install(void) {

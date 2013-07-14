@@ -43,7 +43,11 @@ _trap_enter:
     adr r0, saved_regs
     bl trap_enter
 
-    b .
+    ldr r0, saved_cpsr
+    msr spsr, r0
+
+    adr r0, saved_regs
+    ldm r0, {r0-r15}^
 
     saved_regs:
         .rept 16
