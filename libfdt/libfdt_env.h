@@ -1,10 +1,9 @@
 #ifndef _LIBFDT_ENV_H
 #define _LIBFDT_ENV_H
 
-//#include <stddef.h>
-//#include <stdint.h>
-//#include <string.h>
-#include <os.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <string.h>
 
 #define EXTRACT_BYTE(n)	((unsigned long long)((uint8_t *)&x)[n])
 static inline uint16_t fdt16_to_cpu(uint16_t x)
@@ -26,8 +25,5 @@ static inline uint64_t fdt64_to_cpu(uint64_t x)
 }
 #define cpu_to_fdt64(x) fdt64_to_cpu(x)
 #undef EXTRACT_BYTE
-
-/* Included here because os.h doesn't include it for some reason */
-const void* memchr(const void *ptr, int value, size_t num);
 
 #endif /* _LIBFDT_ENV_H */

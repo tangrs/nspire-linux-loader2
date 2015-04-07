@@ -17,7 +17,6 @@
 */
 
 #include <os.h>
-#include <nspireio.h>
 #include "common.h"
 #include "memory.h"
 #include "cmd.h"
@@ -74,7 +73,7 @@ int main(int argc, char *argv[]) {
     while (1) {
         char cmd[128];
         nio_puts("> ");
-        if (nio_gets(cmd)) {
+        if (nio_getsn(cmd, 127)) {
             if (process_cmd(cmd)) break;
         }
     }
