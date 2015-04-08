@@ -48,7 +48,7 @@ void setget_phys(char *arg) {
         settings.phys.start = (void*)start;
         settings.phys.size  = size;
     }
-    printl("Physical memory range is 0x%p-0x%p" NEWLINE, settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
+    printl("Physical memory range is %p-%p" NEWLINE, settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 }
 
 void setget_rdisksize(char *arg) {

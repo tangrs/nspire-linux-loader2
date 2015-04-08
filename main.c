@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     if (detect_memory())
         printl("Warning: Could not detect amount of memory!" NEWLINE);
     else
-        printl("Physical memory at: 0x%p-0x%p" NEWLINE,
+        printl("Physical memory at: %p-%p" NEWLINE,
             settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 
     if (detect_serialnr())
