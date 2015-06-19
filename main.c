@@ -17,7 +17,6 @@
 */
 
 #include <os.h>
-#include <nspireio.h>
 #include "common.h"
 #include "memory.h"
 #include "cmd.h"
@@ -57,7 +56,7 @@ int main(int argc, char *argv[]) {
     if (detect_memory())
         printl("Warning: Could not detect amount of memory!" NEWLINE);
     else
-        printl("Physical memory at: 0x%p-0x%p" NEWLINE,
+        printl("Physical memory at: %p-%p" NEWLINE,
             settings.phys.start, (void*)((char*)settings.phys.start + settings.phys.size));
 
     if (detect_serialnr())
@@ -74,7 +73,7 @@ int main(int argc, char *argv[]) {
     while (1) {
         char cmd[128];
         nio_puts("> ");
-        if (nio_gets(cmd)) {
+        if (nio_getsn(cmd, 127)) {
             if (process_cmd(cmd)) break;
         }
     }

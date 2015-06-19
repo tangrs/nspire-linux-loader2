@@ -18,8 +18,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <stdarg.h>
 #include <stddef.h>
-#include <nspireio.h>
+#include <nspireio/nspireio.h>
 
 #define PAGE_SIZE 0x1000
 #define DTB_MACH_ID 3503

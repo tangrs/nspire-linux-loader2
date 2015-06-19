@@ -9,10 +9,6 @@ BUILDFLAGS := -DBUILD_DATE="\"$(shell date --rfc-2822)\""
 BUILDFLAGS += -DGIT_COMMIT="\"$(shell git rev-parse --short HEAD)\""
 
 LDFLAGS = -lnspireio
-OBJCOPY := "$(shell which arm-elf-objcopy 2>/dev/null)"
-ifeq (${OBJCOPY},"")
-	OBJCOPY := arm-none-eabi-objcopy
-endif
 EXE = linuxloader2.tns
 
 OBJS  = $(patsubst %.c,%.o,$(wildcard *.c))
@@ -30,7 +26,8 @@ all: $(EXE)
 
 $(EXE): $(OBJS)
 	$(LD) $^ -o $(@:.tns=.elf) $(LDFLAGS)
-	$(OBJCOPY) -O binary $(@:.tns=.elf) $@
+	genzehn --input $(@:.tns=.elf) --output $(@:.tns=.zehn) --name "Linux Loader v2" --version 1 --author "tangrs"
+	make-prg $(@:.tns=.zehn) $@
 
 clean:
 	rm -f $(OBJS) *.elf
